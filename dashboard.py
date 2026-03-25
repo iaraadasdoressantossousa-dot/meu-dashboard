@@ -11,7 +11,8 @@ def local_css(file_name):
 local_css("Stylepy.css")
 
 # Agora o restante do seu código Streamlit terá o estilo aplicado!
-st.title("EA Makers Analytics")
+st.title("EA Makers")
+print("Bem-Vindo ao Dashboard automatizado que transforma dados em resultados que podem mudar a sua startup.")
 
 # 1. Configuração da página com sua paleta de cores
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
