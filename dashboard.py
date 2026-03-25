@@ -48,13 +48,13 @@ if uploaded_file is not None:
         Savings = df['Savings'].mean()
         st.metric(label='Savings do projeto', value=f"{Savings:.2f} reais")
         # 6. Mostrar os dados calculados
-        st.write("### Visualização dos Dados com ROI")
-        if roi_medio > 50: {
-            st.subheader('ROI > 50: Projeto viável')
+         if roi_medio > 50: {
+            st.write('ROI > 50: Projeto viável')
         }
         else: {
-            st.subheader('ROI < 50: Projeto inviável')
+            st.write('ROI < 50: Projeto inviável')
         }
+        st.write("### Visualização dos Dados com ROI")
         st.dataframe(df)
     else:
         st.error(f"O arquivo precisa conter as colunas: {', '.join(colunas_necessarias)}")
