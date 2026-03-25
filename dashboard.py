@@ -2,6 +2,18 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Função para carregar o CSS
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Chama a função passando o seu arquivo
+local_css("style.css")
+
+# Agora o restante do seu código Streamlit terá o estilo aplicado!
+st.title("EA Makers Analytics")
+st.button("Calcular Investimento")
+
 # 1. Configuração da página com sua paleta de cores
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
