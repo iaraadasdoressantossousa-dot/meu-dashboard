@@ -44,7 +44,7 @@ if uploaded_file is not None:
         Payback= df['Payback'].mean()
         st.metric(label='Payback do projeto', value=f"{Payback:.2f} anos")
 
-        df['Savings'] = (df['Salário médio']/160)*(df['Horas economizadas']*df['total de funcionários'])
+        df['Savings'] = (df['Salário médio']/160)*(df['Horas economizadas']*df['total de funcionarios'])
         Savings = df['Savings'].mean()
         st.metric(label='Savings do projeto', value=f"{Savings:.2f} reais")
         # 6. Mostrar os dados calculados
