@@ -8,7 +8,7 @@ def local_css(file_name):
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 # Chama a função passando o seu arquivo
-local_css("stylepy.css")
+local_css("Stylepy.css")
 
 # Agora o restante do seu código Streamlit terá o estilo aplicado!
 st.title("EA Makers Analytics")
