@@ -9,7 +9,8 @@ def local_css(file_name):
 
 # Chama a função passando o seu arquivo
 local_css("Stylepy.css")
-ROI= ([@[Valor total do projeto]]-[@[Investimento (R$)]])/[@[Investimento (R$)]]*100
+# No Python/Pandas, acessamos as colunas pelo nome entre aspas
+df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
 # Agora o restante do seu código Streamlit terá o estilo aplicado!
 st.title("EA Makers")
 st.subheader("Bem-Vindo ao Dashboard automatizado que transforma dados em resultados que podem mudar a sua startup.")
