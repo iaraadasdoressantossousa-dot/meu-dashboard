@@ -62,7 +62,7 @@ if uploaded_file is not None:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         st.divider()
-        st.bar_chart(df, x=None, y=ROI, x_label=None, y_label=ROI, color=r, horizontal=False, sort=True, stack=None, width="stretch", height="content", use_container_width=None)
+        st.bar_chart(df, x=None, y=df['ROI'], x_label=None, y_label=ROI, color=r, horizontal=False, sort=True, stack=None, width="stretch", height="content", use_container_width=None)
     else:
         st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
 
