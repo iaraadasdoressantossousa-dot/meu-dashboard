@@ -14,7 +14,7 @@ def local_css(file_name):
 local_css("Stylepy.css")
 
 st.title("EA Makers")
-st.subheader("Análise Estratégica do Triênio (2023 - 2025)")
+st.subheader("Análise (2023 - 2025)")
 
 uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
 
@@ -62,7 +62,7 @@ if uploaded_file is not None:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         st.divider()
-
+        st.bar_chart(df, *, x=None, y=ROI, x_label=None, y_label=ROI, color=r, horizontal=False, sort=True, stack=None, width="stretch", height="content", use_container_width=None)
     else:
         st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
 
