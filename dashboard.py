@@ -9,11 +9,11 @@ def local_css(file_name):
 
 # Chama a função passando o seu arquivo
 local_css("Stylepy.css")
-
+ROI= ([@[Valor total do projeto]]-[@[Investimento (R$)]])/[@[Investimento (R$)]]*100
 # Agora o restante do seu código Streamlit terá o estilo aplicado!
 st.title("EA Makers")
 st.subheader("Bem-Vindo ao Dashboard automatizado que transforma dados em resultados que podem mudar a sua startup.")
-
+st.print("Retorno por Investimento: ",ROI)
 # 1. Configuração da página com sua paleta de cores
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
@@ -33,8 +33,4 @@ if uploaded_file is not None:
     st.write("### Visualização dos Dados Brutos", df.head())
 
     # 5. Realizar seus cálculos (Exemplo: Média de Investimentos)
-    # st.write(df.describe())  # Exemplo rápido de estatística
-
-    # 6. Gerar Gráficos
-    st.subheader("Análise Visual EA Makers")
-    st.line_chart(df) # Gráfico rápido do Streamlit
+    # st.write(df.describe()) 
