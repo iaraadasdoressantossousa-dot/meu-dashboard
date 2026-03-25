@@ -11,7 +11,7 @@ def local_css(file_name):
 local_css("Stylepy.css")
 
 # Agora o restante do seu código Streamlit terá o estilo aplicado!
-st.image("yp.jpg", width=200)
+st.image("yp.jpg", width=100)
 st.title("EA Makers")
 st.subheader("Bem-Vindo ao Dashboard automatizado que transforma dados em resultados que podem mudar a sua startup.")
 
