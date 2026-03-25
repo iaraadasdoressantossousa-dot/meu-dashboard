@@ -1,0 +1,20 @@
+/* Mudar a cor do título principal */
+h1 {
+    color: #2c3e50 !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Deixar os botões com o dourado da EA Makers */
+.stButton>button {
+    background-color: #987807 !important;
+    color: white !important;
+    border-radius: 10px;
+    border: none;
+    height: 3em;
+    width: 100%;
+}
+
+/* Mudar a cor de fundo da página */
+.stApp {
+    background-color: #f8f9fa;
+}
