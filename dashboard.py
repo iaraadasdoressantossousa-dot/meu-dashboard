@@ -49,6 +49,12 @@ if uploaded_file is not None:
         st.metric(label='Savings do projeto', value=f"{Savings:.2f} reais")
         # 6. Mostrar os dados calculados
         st.write("### Visualização dos Dados com ROI")
+        if ROI > 50: {
+            st.print('Projeto viável')
+        }
+        else: {
+            st.print('Projeto não viável')
+        }
         st.dataframe(df)
     else:
         st.error(f"O arquivo precisa conter as colunas: {', '.join(colunas_necessarias)}")
