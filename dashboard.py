@@ -12,7 +12,6 @@ local_css("Stylepy.css")
 
 # Agora o restante do seu código Streamlit terá o estilo aplicado!
 st.title("EA Makers Analytics")
-st.button("Calcular Investimento")
 
 # 1. Configuração da página com sua paleta de cores
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
