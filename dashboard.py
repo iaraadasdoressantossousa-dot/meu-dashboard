@@ -38,7 +38,7 @@ if uploaded_file is not None:
         
         # Exibindo um resumo do ROI médio
         roi_medio = df['ROI'].mean()
-        st.metric(label="ROI Médio do Portfólio", value=f"{roi_medio:.2f}%")
+        st.metric(label="ROI do Portfólio", value=f"{roi_medio:.2f}%")
         
         # 6. Mostrar os dados calculados
         st.write("### Visualização dos Dados com ROI")
