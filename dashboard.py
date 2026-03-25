@@ -32,7 +32,8 @@ if uploaded_file is not None:
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         # Cálculo de Savings (considerando 160h mensais)
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
-
+        st.write("### Tabela de Dados Calculada")
+        st.dataframe(df)
         # --- EXIBIÇÃO POR ANO ---
         st.write("### 📊 Performance por Ano")
         
@@ -61,8 +62,6 @@ if uploaded_file is not None:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         st.divider()
-        st.write("### Tabela de Dados Calculada")
-        st.dataframe(df)
 
     else:
         st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
