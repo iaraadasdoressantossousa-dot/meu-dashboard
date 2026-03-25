@@ -33,6 +33,8 @@ if uploaded_file is not None:
     colunas_necessarias = ['Valor total do projeto', 'Investimento (R$)']
     
     if all(col in df.columns for col in colunas_necessarias):
+        st.write("### Visualização dos Dados com ROI")
+        st.dataframe(df)
         # Cálculo do ROI
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         
@@ -54,8 +56,6 @@ if uploaded_file is not None:
         else: {
             st.write('ROI < 50: Projeto inviável')
          }
-        st.write("### Visualização dos Dados com ROI")
-        st.dataframe(df)
     else:
         st.error(f"O arquivo precisa conter as colunas: {', '.join(colunas_necessarias)}")
 
