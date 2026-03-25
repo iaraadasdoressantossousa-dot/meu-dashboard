@@ -48,7 +48,7 @@ if uploaded_file is not None:
         Savings = df['Savings'].mean()
         st.metric(label='Savings do projeto', value=f"{Savings:.2f} reais")
         # 6. Mostrar os dados calculados
-         if roi_medio > 50: {
+        if roi_medio > 50: {
             st.write('ROI > 50: Projeto viável')
          }
         else: {
