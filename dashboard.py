@@ -50,10 +50,10 @@ if uploaded_file is not None:
         # 6. Mostrar os dados calculados
          if roi_medio > 50: {
             st.write('ROI > 50: Projeto viável')
-        }
+         }
         else: {
             st.write('ROI < 50: Projeto inviável')
-        }
+         }
         st.write("### Visualização dos Dados com ROI")
         st.dataframe(df)
     else:
