@@ -37,8 +37,8 @@ if uploaded_file is not None:
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         
         # Exibindo um resumo do ROI médio
-        ROI = df['ROI'].mean()
-        st.metric(label="ROI do Projeto", value=f"{ROI:.2f}%")
+        roi_medio = df['ROI'].mean()
+        st.metric(label="ROI do Projeto", value=f"{roi_medio:.2f}%")
 
         df['Payback'] = (df['Investimento (R$)']/(df['Lucro']))
         Payback= df['Payback'].mean()
@@ -49,7 +49,7 @@ if uploaded_file is not None:
         st.metric(label='Savings do projeto', value=f"{Savings:.2f} reais")
         # 6. Mostrar os dados calculados
         st.write("### Visualização dos Dados com ROI")
-        if ROI > 50: {
+        if roi_medio > 50: {
             st.print('Projeto viável')
         }
         else: {
