@@ -42,7 +42,7 @@ if uploaded_file is not None:
 
         df['Payback'] = (df['Investimento (R$)']/(df['Lucro']))
         Payback= df['Payback'].mean()
-        st.metric(label='Payback do projeto', value=f"{Payback:.2f}%")
+        st.metric(label='Payback do projeto', value=f"{Payback:.2f} anos")
         # 6. Mostrar os dados calculados
         st.write("### Visualização dos Dados com ROI")
         st.dataframe(df)
