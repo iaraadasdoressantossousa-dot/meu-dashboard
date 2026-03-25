@@ -1,37 +1,50 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# Função para carregar o CSS
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-# Chama a função passando o seu arquivo
-local_css("Stylepy.css")
-# No Python/Pandas, acessamos as colunas pelo nome entre aspas
-df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
-# Agora o restante do seu código Streamlit terá o estilo aplicado!
-st.title("EA Makers")
-st.subheader("Bem-Vindo ao Dashboard automatizado que transforma dados em resultados que podem mudar a sua startup.")
-st.print("Retorno por Investimento: ",ROI)
-# 1. Configuração da página com sua paleta de cores
+# 1. Configuração da página (DEVE ser o primeiro comando Streamlit)
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
-st.title("Upload de Dados para Consultoria")
+# 2. Função para carregar o CSS
+def local_css(file_name):
+    try:
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        st.error(f"Arquivo {file_name} não encontrado.")
 
-# 2. Receber o arquivo (Excel ou CSV)
+# Aplica o CSS
+local_css("Stylepy.css")
+
+st.title("EA Makers")
+st.subheader("Dashboard automatizado que transforma dados em resultados.")
+
+# 3. Upload do arquivo
 uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
-    # 3. Ler o arquivo dependendo da extensão
+    # 4. Ler o arquivo
     if uploaded_file.name.endswith('.csv'):
         df = pd.read_csv(uploaded_file)
     else:
         df = pd.read_excel(uploaded_file)
 
-    # 4. Mostrar os dados
-    st.write("### Visualização dos Dados Brutos", df.head())
+    # 5. Cálculos (Agora que o 'df' existe)
+    # Verificamos se as colunas necessárias existem no arquivo enviado
+    colunas_necessarias = ['Valor total do projeto', 'Investimento (R$)']
+    
+    if all(col in df.columns for col in colunas_necessarias):
+        # Cálculo do ROI
+        df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
+        
+        # Exibindo um resumo do ROI médio
+        roi_medio = df['ROI'].mean()
+        st.metric(label="ROI Médio do Portfólio", value=f"{roi_medio:.2f}%")
+        
+        # 6. Mostrar os dados calculados
+        st.write("### Visualização dos Dados com ROI")
+        st.dataframe(df)
+    else:
+        st.error(f"O arquivo precisa conter as colunas: {', '.join(colunas_necessarias)}")
 
-    # 5. Realizar seus cálculos (Exemplo: Média de Investimentos)
-    # st.write(df.describe()) 
+else:
+    st.info("Aguardando upload de arquivo para iniciar os cálculos.")
