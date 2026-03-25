@@ -37,8 +37,8 @@ if uploaded_file is not None:
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         
         # Exibindo um resumo do ROI médio
-        roi_medio = df['ROI'].mean()
-        st.metric(label="ROI do Projeto", value=f"{roi_medio:.2f}%")
+        ROI = df['ROI'].mean()
+        st.metric(label="ROI do Projeto", value=f"{ROI:.2f}%")
 
         df['Payback'] = (df['Investimento (R$)']/(df['Lucro']))
         Payback= df['Payback'].mean()
