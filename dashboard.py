@@ -87,32 +87,32 @@ if uploaded_file is not None:
             template="plotly_white",
             margin=dict(l=20, r=20, t=20, b=20)
         )
+        with st.container(border=True):
+          # --- GRÁFICOS LADO A LADO ---
+          st.write("### 📊 Análises Visuais")
 
-        # --- GRÁFICOS LADO A LADO ---
-        st.write("### 📊 Análises Visuais")
+          col1, col2 = st.columns(2)
 
-        col1, col2 = st.columns(2)
+          # --- GRÁFICO 1: ROI ---
+          with col1.container(border=True):
+           st.markdown("#### 📈 ROI por Ano")
+           st.line_chart(
+            data= df,
+            x="ano",
+            y="ROI",
+            use_container_width=True,
+            height=400,
+           )
 
-        # --- GRÁFICO 1: ROI ---
-        with col1.container(border=True):
-          st.markdown("#### 📈 ROI por Ano")
-          st.line_chart(
-           data= df,
-           x="ano",
-           y="ROI",
-           use_container_width=True,
-           height=400,
+          # --- GRÁFICO 2: Investimento vs Lucro ---
+          with col2.container(border=True):
+           st.markdown("#### 📊 Investimento vs Lucro")
+
+           fig.update_layout(
+           height=400  # 👈 mesma altura aqui
           )
 
-        # --- GRÁFICO 2: Investimento vs Lucro ---
-        with col2.container(border=True):
-         st.markdown("#### 📊 Investimento vs Lucro")
-
-         fig.update_layout(
-         height=400  # 👈 mesma altura aqui
-         )
-
-         st.plotly_chart(fig, use_container_width=True)
+          st.plotly_chart(fig, use_container_width=True)
 
     else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
