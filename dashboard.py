@@ -14,8 +14,8 @@ def local_css(file_name):
 
 local_css("Stylepy.css")
 
-st.title("EA Makers")
-st.subheader("Análise (2023 - 2025)")
+st.title("EA Makers - Dashboard")
+st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
 
 uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
 
