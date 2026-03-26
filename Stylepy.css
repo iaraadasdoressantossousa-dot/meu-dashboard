@@ -46,7 +46,7 @@ h4 {
 
 /* 5. SIDEBAR MAIS PROFISSIONAL */
 [data-testid="stSidebar"] {
-    background-color:#2d3436 !important;
+    background-color:#1e272e !important;
 }
 .stButton>button {
     background-color: #987807 !important;
