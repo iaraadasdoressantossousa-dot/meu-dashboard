@@ -62,16 +62,16 @@ if uploaded_file is not None:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
  
-  st.write("### 📈 Comparativo de ROI por Ano")
-  st.bar_chart(
-   data=df, 
-   x="ano", 
-   y="ROI", 
-   x_label="Ano de Operação", 
-   y_label="Retorno sobre Investimento (%)", 
-   color="#2E7D32", # Um verde escuro elegante (ou use a cor da sua paleta)
-   use_container_width=True
-  )
+       st.write("### 📈 Comparativo de ROI por Ano")
+       st.bar_chart(
+       data=df, 
+       x="ano", 
+       y="ROI", 
+       x_label="Ano de Operação", 
+       y_label="Retorno sobre Investimento (%)", 
+       color="#2E7D32", # Um verde escuro elegante (ou use a cor da sua paleta)
+       use_container_width=True
+       )
  st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
 
 else:
