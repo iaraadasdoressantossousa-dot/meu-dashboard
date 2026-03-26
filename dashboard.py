@@ -70,14 +70,14 @@ if uploaded_file is not None:
             x=df['ano'],
             y=df['Investimento (R$)'],
             name='Investimento',
-            marker_color='#E53935'
+            marker_color='#FFEB3B'
         ))
 
         fig.add_trace(go.Bar(
             x=df['ano'],
             y=df['Lucro'],
             name='Lucro',
-            marker_color='#2E7D32'
+            marker_color='#0097A7'
         ))
 
         fig.update_layout(
