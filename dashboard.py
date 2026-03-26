@@ -98,6 +98,7 @@ if uploaded_file is not None:
         with col1:
           st.markdown("#### 📈 ROI por Ano")
           st.line_chart(
+           data= df,
            x=df["ano"],
            y=df["ROI"],
            use_container_width=True,
