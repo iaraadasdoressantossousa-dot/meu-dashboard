@@ -42,6 +42,7 @@ if uploaded_file is not None:
     colunas_req = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
     
     if all(col in df.columns for col in colunas_req):
+       with st.container(border=True):
         # Cálculos
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
