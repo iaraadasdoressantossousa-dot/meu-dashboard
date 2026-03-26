@@ -60,14 +60,15 @@ if uploaded_file is not None:
 
         # --- GRÁFICO (Agora dentro do IF de colunas) ---
         st.write("### 📈 Comparativo de ROI por Ano")
+
         st.line_chart(
-            data=df, 
-            x="ano", 
-            y="ROI", 
-            x_label="Ano de Operação", 
-            y_label="Retorno sobre Investimento (%)", 
-            color="#2E7D32", 
-            use_container_width=True
+        data=df, 
+        x="ano", 
+        y="ROI", 
+        x_label="Ano de Operação", 
+        y_label="Retorno sobre Investimento (%)", 
+        color="#2E7D32", 
+        use_container_width=True
         )
     else:
         # Este else avisa se as colunas obrigatórias não foram encontradas
