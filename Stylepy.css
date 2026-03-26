@@ -39,10 +39,10 @@ h1 {
 /* Stylepy.css */
 [data-testid="stSidebar"] {
     background-color: #d4af37; /* Substitua pela cor da EA Makers */
-    color: white;
+    color: black;
 }
 
 /* Para mudar a cor dos textos e ícones dentro do menu */
 [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
-    color: #d4af37;
+    color: #fffff;
 }
