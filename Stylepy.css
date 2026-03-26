@@ -44,5 +44,5 @@ h1 {
 
 /* Para mudar a cor dos textos e ícones dentro do menu */
 [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
-    color: #ffffff;
+    color: #d4af37;
 }
