@@ -61,7 +61,7 @@ if uploaded_file is not None:
             else:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
-  st.divider()
+ 
   st.write("### 📈 Comparativo de ROI por Ano")
   st.bar_chart(
   data=df, 
