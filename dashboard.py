@@ -45,7 +45,7 @@ if uploaded_file is not None:
            col23, col24, col25, col26 = st.columns(4)
            mapa_colunas ={2023: col23, 2024: col24, 2025: col25, 2026: col26}
 
-           for ano in [2023, 2024, 2025, 2026, 2027]:
+           for ano in [2023, 2024, 2025, 2026]:
              dados_ano = df[df['ano'] == ano]
              if not dados_ano.empty:
                 r = dados_ano.iloc[0]
