@@ -37,6 +37,7 @@ if uploaded_file is not None:
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
         with st.container(border=True):
            st.write("### Tabela de Dados do usuário")
+        with st.container(border=True):
            st.dataframe(df)
         # --- MÉTRICAS POR ANO ---
         with st.container(border=True):
