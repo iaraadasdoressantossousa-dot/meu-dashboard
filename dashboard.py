@@ -52,9 +52,9 @@ if uploaded_file is not None:
                     st.metric("Savings", f"R$ {r['Savings']:,.2f}")
                     
                     if r['ROI'] > 50:
-                        st.success("✅ Projeto Viável")
+                        st.success("✅ Projeto Viável ( ROI > 50 )")
                     else:
-                        st.error("⚠️ Inviável")
+                        st.error("⚠️ Inviável ( ROI < 50 )")
             else:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
