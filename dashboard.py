@@ -96,6 +96,8 @@ if uploaded_file is not None:
           barmode='group', 
           xaxis_title="Ano de Operação",
           yaxis_title="Valor (R$)",
+          paper_bgcolor='rgba(46, 125, 50, 0.05)', # Cor de fundo externa (verde bem clarinho)
+          plot_bgcolor='rgba(0,0,0,0)',
           legend_title="Indicadores",
           template="plotly_white",
           margin=dict(l=20, r=20, t=20, b=20)
