@@ -21,7 +21,8 @@ uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv"
 if uploaded_file is not None:
     # Ler o arquivo
     df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
-
+    
+    df['ano'] = df['ano'].astype(int).astype(str)
     # Verificação de colunas
     colunas_obrigatorias = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
     
