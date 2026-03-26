@@ -76,9 +76,9 @@ if uploaded_file is not None:
                                 st.metric("Savings", f"R${r['Savings']:,.0f}")
                                 
                                 if r['ROI'] > 50:
-                                    st.success("Viável")
+                                    st.success("☑ Viável")
                                 else:
-                                    st.error("Inviável")
+                                    st.error("☒ Inviável")
             
             st.divider()
 
