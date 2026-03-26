@@ -116,4 +116,4 @@ if uploaded_file is not None:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
 
 else:
-    st.info("Aguardando upload do arquivo para processar os 3 anos.")
+    st.info("Aguardando upload do arquivo.")
