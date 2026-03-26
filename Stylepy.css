@@ -26,10 +26,12 @@ h1 {
     border: 1px solid #2E7D32;
 }
 /* Aplica um fundo cinza bem claro e arredonda os blocos do Streamlit */
-[data-testid="stVerticalBlockBorderWrapper"] > div {
-    background-color: #a9871fd5; /* Cor de fundo bem leve */
-    border-radius: 15px;       /* Cantos bem arredondados */
-    padding: 10px;
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: #a9871fd5 !important; /* Sua cor dourada com transparência */
+    border-radius: 15px !important;         /* Cantos arredondados */
+    padding: 20px !important;               /* Espaçamento interno para o texto não encostar na borda */
+    border: none !important;                /* Remove a borda cinza padrão para um visual mais limpo */
+    margin-bottom: 20px !important;         /* Espaço entre um container e outro */
 }
 
 /* Remove a borda cinza padrão se quiser um visual ainda mais "clean" */
