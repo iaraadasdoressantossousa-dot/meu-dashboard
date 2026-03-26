@@ -1,172 +1,65 @@
-/* 1. Diminuir o título principal e subheader */
-
-h1 {
-
-    font-size: 1.8rem !important;
-
-    margin-bottom: 0px !important;
-
+/* 1. LIMPEZA TOTAL DE ESPAÇOS (CRUCIAL) */
+.block-container {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
 }
 
-
-
-h3 {
-
-    font-size: 1.2rem !important;
-
-    margin-top: 0px !important;
-
+/* Remove espaços entre colunas e widgets */
+[data-testid="stVerticalBlock"] {
+    gap: 0.4rem !important;
 }
 
+/* 2. OS CARDS DOURADOS (MAIS FINOS E LIMPOS) */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border: 1.5px solid #a9871fd5 !important;
+    border-radius: 12px !important;
+    background-color: #ffffff !important;
+    padding: 8px !important;
+    margin: 0px !important;
+}
 
+/* Remove o fundo cinza interno que o Streamlit coloca automaticamente */
+[data-testid="stVerticalBlockBorderWrapper"] > div {
+    background-color: transparent !important;
+    padding: 0px !important;
+}
 
-/* 2. Diminuir as métricas (ROI, Payback, Savings) */
-
-/* O rótulo (Label) */
+/* 3. MÉTRICAS COMPACTAS */
+[data-testid="stMetric"] {
+    background-color: transparent !important; /* Remove o fundo cinza das métricas */
+    border: none !important; /* Remove bordas internas */
+    padding: 0px !important;
+    text-align: center;
+}
 
 [data-testid="stMetricLabel"] {
-
-    font-size: 0.8rem !important;
-
+    font-size: 0.7rem !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
-
-
-
-/* O valor numérico */
 
 [data-testid="stMetricValue"] {
-
-    font-size: 1.5rem !important;
-
+    font-size: 1.1rem !important; /* Diminuído para não quebrar a linha */
+    font-weight: 800 !important;
+    color: #333;
 }
 
-
-
-/* 3. Diminuir os textos dentro dos containers/cards */
-
-.stMarkdown p {
-
-    font-size: 0.9rem !important;
-
-    line-height: 1.2 !important;
-
-}
-
-
-
-/* 4. Ajustar os títulos das colunas (Ano 2023, etc) */
-
+/* 4. TÍTULOS E STATUS */
 h4 {
-
-    font-size: 1rem !important;
-
-    text-align: center;
-
-
-
-/* Deixar os botões com o dourado da EA Makers */
-
-.stButton>button {
-
-    background-color: #a9871fd5 !important;
-
-    color: white !important;
-
-    border-radius: 10px;
-
-    border: none;
-
-    height: 3em;
-
-    width: 100%;
-
-}
-
-
-
-/* Mudar a cor de fundo da página */
-
-.stApp {
-
-    background-color: #f2f2f2;
-
-}
-
-/* Fundo para todos os blocos de métricas */
-
-[data-testid="stMetric"] {
-
-    background-color: #f0f2f6;
-
-    padding: 15px;
-
-    border-radius: 10px;
-
-    border: 2px solid #a9871fd5;
-
-}
-
-/* Aplica um fundo cinza bem claro e arredonda os blocos do Streamlit */
-
-[data-testid="stVerticalBlockBorderWrapper"] > div {
-
-    background-color: #d4af37; /* Cor de fundo bem leve */
-
-    border-radius: 15px;       /* Cantos bem arredondados */
-
-    padding: 10px;
-
-}
-
-
-
-/* Remove a borda cinza padrão se quiser um visual ainda mais "clean" */
-
-[data-testid="stVerticalBlockBorderWrapper"] {
-
-    border: none !important;
-
-}
-
-/* Stylepy.css */
-
-[data-testid="stSidebar"] {
-
-    background-color: #E5E4E2; /* Substitua pela cor da EA Makers */
-
-    color: black;
-
-}
-
-
-
-/* Para mudar a cor dos textos e ícones dentro do menu */
-
-[data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
-
-    color: #fffff;
-
-}
-
-/* Stylepy.css */
-
-/* Remove o espaço em branco no topo do dashboard */
-
-.block-container {
-
-    padding-top: 1rem;
-
-    padding-bottom: 0rem;
-
-    padding-left: 2rem;
-    
-/* 5. BOTÕES PERSONALIZADOS */
-.stButton>button {
-    background-color: #a9871fd5 !important;
-    color: white !important;
-    border-radius: 10px !important;
-    border: none !important;
-    height: 2.5em !important; /* Diminuído levemente */
-    width: 100%;
+    font-size: 0.85rem !important;
+    margin-bottom: 2px !important;
     font-weight: bold;
+}
+
+/* Ajuste das mensagens de Viável/Inviável para ficarem menores */
+.stAlert {
+    padding: 5px !important;
+    font-size: 0.75rem !important;
+}
+
+/* 5. SIDEBAR MAIS PROFISSIONAL */
+[data-testid="stSidebar"] {
+    background-color: #f8f9fa !important;
 }
