@@ -121,4 +121,5 @@ if uploaded_file is not None:
     else:
         st.error(f"Erro: O ficheiro deve conter as colunas: {', '.join(colunas_req)}")
 else:
-    st.info("👋 Bem-vindo! Por favor, faça o upload do ficheiro no menu lateral para começar.")
+    st.title("Dashboard dinâmico - EA Makers")
+    st.info(" Bem-vindo! Por favor, faça o upload da base de dados no menu lateral para começar.")
