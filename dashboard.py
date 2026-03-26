@@ -58,19 +58,20 @@ if uploaded_file is not None:
             else:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
-        # --- GRÁFICO (Agora dentro do IF de colunas) ---
-       st.write("### 📈 Curva de Crescimento: ROI Exponencial")
+        # --- GRÁFICO (Agora dentro do IF de colunas) --
 
-       # Usando line_chart para visualizar a inclinação da curva
-      st.line_chart(
-      data=df, 
-      x="ano", 
-      y="ROI", 
-      x_label="Ano de Operação", 
-      y_label="Retorno sobre Investimento (%)", 
-      color="#2E7D32", 
-      use_container_width=True
-      )
+        st.write("### 📈 Curva de Crescimento: ROI por Ano")
+
+        # Agora que 'ano' é string, o gráfico exibirá 2023, 2024, 2025 de forma limpa
+        st.line_chart(
+         data=df, 
+         x="ano", 
+         y="ROI", 
+         x_label="Ano de Operação", 
+         y_label="Retorno sobre Investimento (%)", 
+         color="#2E7D32", 
+         use_container_width=True
+         )
     else:
         # Este else avisa se as colunas obrigatórias não foram encontradas
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
