@@ -17,7 +17,13 @@ local_css("Stylepy.css")
 st.title("EA Makers - Dashboard")
 st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
 
-uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
+with st.sidebar:
+    st.image("logo_ea_makers.png") # Opcional: sua logo
+    st.title("Menu de Navegação")
+    uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
+    
+    st.markdown("---")
+    st.info("Configurações do Dashboard")
 
 if uploaded_file is not None:
     # Ler o arquivo
