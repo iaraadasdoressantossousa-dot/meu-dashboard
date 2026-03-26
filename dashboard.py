@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+
 # 1. Configuração da página
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
@@ -26,15 +27,16 @@ if uploaded_file is not None:
     colunas_obrigatorias = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
     
     if all(col in df.columns for col in colunas_obrigatorias):
-        # --- CÁLCULOS GERAIS ---
+
+        # --- CÁLCULOS ---
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
-        
+
         st.write("### Tabela de Dados Calculada")
         st.dataframe(df)
 
-        # --- EXIBIÇÃO POR ANO ---
+        # --- MÉTRICAS POR ANO ---
         st.write("### 📊 Performance por Ano")
         
         col23, col24, col25 = st.columns(3)
@@ -58,53 +60,53 @@ if uploaded_file is not None:
             else:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
-        # --- GRÁFICO (Agora dentro do IF de colunas) --
-
-        st.write("### 📈 Curva de Crescimento: ROI por Ano")
-
-        # Agora que 'ano' é string, o gráfico exibirá 2023, 2024, 2025 de forma limpa
-        st.line_chart(
-         data=df, 
-         x="ano", 
-         y="ROI", 
-         x_label="Ano de Operação", 
-         y_label="Retorno sobre Investimento (%)", 
-         color="#2E7D32", 
-         use_container_width=True
-         )
-        st.write("### 📊 Comparativo: Investimento vs Lucro")
-
-        # Criando o gráfico com Plotly
+        # --- GRÁFICO DE BARRAS (Plotly) ---
         fig = go.Figure()
 
         fig.add_trace(go.Bar(
-         x=df['ano'],
-         y=df['Investimento (R$)'],
-         name='Investimento',
-         marker_color='#E53935' # Vermelho para saída/custo
+            x=df['ano'],
+            y=df['Investimento (R$)'],
+            name='Investimento',
+            marker_color='#E53935'
         ))
 
-        # Barra de Lucro
         fig.add_trace(go.Bar(
-         x=df['ano'],
-         y=df['Lucro'],
-         name='Lucro',
-         marker_color='#2E7D32' # Verde para entrada/retorno
-         ))
+            x=df['ano'],
+            y=df['Lucro'],
+            name='Lucro',
+            marker_color='#2E7D32'
+        ))
 
         fig.update_layout(
-          barmode='group', 
-          xaxis_title="Ano de Operação",
-          yaxis_title="Valor (R$)",
-          legend_title="Indicadores",
-          template="plotly_white",
-          margin=dict(l=20, r=20, t=20, b=20)
-         )
+            barmode='group',
+            xaxis_title="Ano de Operação",
+            yaxis_title="Valor (R$)",
+            legend_title="Indicadores",
+            template="plotly_white",
+            margin=dict(l=20, r=20, t=20, b=20)
+        )
 
-         # Exibindo no Streamlit
-        st.plotly_chart(fig, use_container_width=True)
+        # --- GRÁFICOS LADO A LADO ---
+        st.write("### 📊 Análises Visuais")
+
+        col1, col2 = st.columns(2)
+
+        # ROI
+        with col1:
+            st.markdown("#### 📈 ROI por Ano")
+            st.line_chart(
+                data=df,
+                x="ano",
+                y="ROI",
+                use_container_width=True
+            )
+
+        # Investimento vs Lucro
+        with col2:
+            st.markdown("#### 📊 Investimento vs Lucro")
+            st.plotly_chart(fig, use_container_width=True)
+
     else:
-        # Este else avisa se as colunas obrigatórias não foram encontradas
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
 
 else:
