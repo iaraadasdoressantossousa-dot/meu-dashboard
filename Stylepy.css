@@ -46,3 +46,16 @@ h1 {
 [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
     color: #fffff;
 }
+/* Stylepy.css */
+/* Remove o espaço em branco no topo do dashboard */
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* Diminui o espaço entre os elementos (widgets) */
+[data-testid="stVerticalBlock"] {
+    gap: 0.5rem;
+}
