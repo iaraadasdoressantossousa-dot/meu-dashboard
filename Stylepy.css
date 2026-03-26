@@ -48,3 +48,19 @@ h4 {
 [data-testid="stSidebar"] {
     background-color: #f8f9fa !important;
 }
+
+/* Estilizando o container padrão do Streamlit */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Ou sua classe personalizada */
+.minha-borda-customizada {
+    border: 2px solid #E53935; /* Vermelho da sua marca */
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
