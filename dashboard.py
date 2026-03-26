@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# 1. Configuração da página
+# 1. Configuração da página para tela cheia
 st.set_page_config(page_title="Dashboard - EA Makers", layout="wide")
 
 def local_css(file_name):
@@ -13,13 +13,16 @@ def local_css(file_name):
         pass 
 
 local_css("Stylepy.css")
-with st.container(border=True):
-  st.title("EA Makers - Dashboard")
-  st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
 
+# --- SIDEBAR (MENU LATERAL) ---
 with st.sidebar:
     st.image("yp.jpg")
-    st.title("Menu - Dashboard")
+    st.title("EA Makers")
+    
+    # Navegação entre páginas
+    pagina = st.radio("Navegação", ["Dashboard", "Tabela de Dados"])
+    
+    st.divider()
     uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
@@ -30,92 +33,70 @@ if uploaded_file is not None:
     colunas_obrigatorias = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
     
     if all(col in df.columns for col in colunas_obrigatorias):
-      with st.container(border=True):
-        # --- CÁLCULOS ---
+        # --- CÁLCULOS GLOBAIS ---
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
-        with st.container(border=True):
-           st.write("### Tabela de Dados do usuário")
-           st.dataframe(df)
-        # --- MÉTRICAS POR ANO ---
-        with st.container(border=True):
-           st.write("### 📊 Performance por Ano")
+
+        # Filtro de Anos dinâmico na Sidebar
+        with st.sidebar:
+            anos_disponiveis = sorted(df['ano'].unique())
+            anos_selecionados = st.multiselect("Filtrar Anos", options=anos_disponiveis, default=anos_disponiveis)
         
-           col23, col24, col25, col26 = st.columns(4)
-           mapa_colunas ={2023: col23, 2024: col24, 2025: col25, 2026: col26}
+        df_filtrado = df[df['ano'].isin(anos_selecionados)]
 
-           for ano in [2023, 2024, 2025, 2026]:
-             dados_ano = df[df['ano'] == ano]
-             if not dados_ano.empty:
-                r = dados_ano.iloc[0]
-                with mapa_colunas[ano]:
-                    st.markdown(f"#### Ano {ano}")
-                    st.metric("ROI", f"{r['ROI']:.1f}%")
-                    st.metric("Payback", f"{r['Payback']:.2f} anos")
-                    st.metric("Savings", f"R$ {r['Savings']:,.2f}")
-                    
-                    if r['ROI'] > 50:
-                        st.success("✅ Projeto Viável")
-                    else:
-                        st.error("⚠️ Inviável")
-             else:
-                mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
+        # --- PÁGINA 1: DASHBOARD ---
+        if pagina == "Dashboard":
+            with st.container(border=True):
+                st.title("EA Makers - Analytics")
+                st.subheader("Insights que redefinem sua empresa.")
 
-        # --- GRÁFICO DE BARRAS (Plotly) ---
-        with st.container(border=True):
-          fig = go.Figure()
+            # --- MÉTRICAS POR ANO (DINÂMICAS) ---
+            if anos_selecionados:
+                cols = st.columns(len(anos_selecionados))
+                for ano, col in zip(anos_selecionados, cols):
+                    dados_ano = df_filtrado[df_filtrado['ano'] == ano]
+                    with col:
+                        st.markdown(f"#### Ano {ano}")
+                        if not dados_ano.empty:
+                            r = dados_ano.iloc[0]
+                            with st.container(border=True): # Borda Dourada via CSS
+                                st.metric("ROI", f"{r['ROI']:.1f}%")
+                                st.metric("Payback", f"{r['Payback']:.2f} anos")
+                                st.metric("Savings", f"R$ {r['Savings']:,.2f}")
+                                
+                                if r['ROI'] > 50:
+                                    st.success("✅ Viável")
+                                else:
+                                    st.error("⚠️ Inviável")
 
-          fig.add_trace(go.Bar(
-              x=df['ano'],
-              y=df['Investimento (R$)'],
-              name='Investimento',
-              marker_color='#FFEB3B'
-          ))
+            # --- GRÁFICOS LADO A LADO ---
+            col_g1, col_g2 = st.columns(2)
+            
+            with col_g1.container(border=True):
+                st.markdown("#### 📈 ROI por Ano")
+                st.line_chart(data=df_filtrado, x="ano", y="ROI", height=300)
 
-          fig.add_trace(go.Bar(
-              x=df['ano'],
-              y=df['Lucro'],
-              name='Lucro',
-              marker_color='#0097A7'
-          ))
+            with col_g2.container(border=True):
+                st.markdown("#### 📊 Investimento vs Lucro")
+                fig = go.Figure()
+                fig.add_trace(go.Bar(x=df_filtrado['ano'], y=df_filtrado['Investimento (R$)'], name='Investimento', marker_color='#FFEB3B'))
+                fig.add_trace(go.Bar(x=df_filtrado['ano'], y=df_filtrado['Lucro'], name='Lucro', marker_color='#0097A7'))
+                fig.update_layout(barmode='group', template="plotly_white", height=300, margin=dict(l=10, r=10, t=10, b=10))
+                st.plotly_chart(fig, use_container_width=True)
 
-          fig.update_layout(
-              barmode='group',
-              xaxis_title="Ano de Operação",
-              yaxis_title="Valor (R$)",
-              legend_title="Indicadores",
-              template="plotly_white",
-              margin=dict(l=10, r=10, t=30, b=10)
-          )
-          # --- GRÁFICOS LADO A LADO ---
-          st.write("### 📊 Análises Visuais")
-
-          col1, col2 = st.columns(2)
-
-          # --- GRÁFICO 1: ROI ---
-          with col1.container(border=True):
-           st.markdown("#### 📈 ROI por Ano")
-           st.line_chart(
-            data= df,
-            x="ano",
-            y="ROI",
-            use_container_width=True,
-            height=300,
-           )
-
-          # --- GRÁFICO 2: Investimento vs Lucro ---
-          with col2.container(border=True):
-            st.markdown("#### 📊 Investimento vs Lucro")
-
-            fig.update_layout(
-            height=300  # 👈 mesma altura aqui
-            )
-
-            st.plotly_chart(fig, use_container_width=True)
+        # --- PÁGINA 2: TABELA DE DADOS ---
+        elif pagina == "Tabela de Dados":
+            st.title("Base de Dados")
+            with st.container(border=True):
+                st.write("### Dados Brutos (Filtrados)")
+                st.dataframe(df_filtrado, use_container_width=True, height=500)
+                
+                # Botão de Download
+                csv = df_filtrado.to_csv(index=False).encode('utf-8')
+                st.download_button("Exportar para CSV", data=csv, file_name="dados_makers.csv", mime="text/csv")
 
     else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
-
 else:
-    st.info("Aguardando upload do arquivo.")
+    st.info("Aguardando upload do arquivo no menu lateral.")
