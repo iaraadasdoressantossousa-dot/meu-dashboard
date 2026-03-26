@@ -18,7 +18,7 @@ st.title("EA Makers - Dashboard")
 st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
 
 with st.sidebar:
-    st.image("logo_ea_makers.png") # Opcional: sua logo
+    st.image("yp.jpg")
     st.title("Menu de Navegação")
     uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
     
