@@ -18,3 +18,15 @@ h1 {
 .stApp {
     background-color: #f8f9fa;
 }
+/* Fundo para todos os blocos de métricas */
+[data-testid="stMetric"] {
+    background-color: #f0f2f6;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #2E7D32;
+}
+
+/* Fundo para a área principal do dashboard */
+.main {
+    background-color: #ffffff;
+}
