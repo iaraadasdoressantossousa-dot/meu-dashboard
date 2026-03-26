@@ -112,13 +112,13 @@ if uploaded_file is not None:
             # SEGUNDA LINHA DE GRÁFICOS (GRÁFICO DE PIZZA/ROSCA)
             st.markdown("---")
             with st.container(border=True):
-                st.markdown("#### 🍕 Composição Financeira Acumulada (Período Selecionado)")
+                st.markdown("#### Composição Financeira Acumulada (Período Selecionado)")
                 
                 total_invest = df_filtrado['Investimento (R$)'].sum()
                 total_lucro = df_filtrado['Lucro'].sum()
 
                 fig_pie = go.Figure(data=[go.Pie(
-                    labels=['Investimento Total', 'Lucro Líquido'],
+                    labels=['Invest. Total', 'Lucro Líquido'],
                     values=[total_invest, total_lucro],
                     hole=.4,
                     marker_colors=['#d3d3d3', '#a9871f'],
