@@ -48,7 +48,7 @@ if uploaded_file is not None:
             
             if not dados_ano.empty:
                 r = dados_ano.iloc[0]
-                with mapa_colunas[ano]:
+                with st.container(border=True):
                     st.markdown(f"#### Ano {ano}")
                     st.metric("ROI", f"{r['ROI']:.1f}%")
                     st.metric("Payback", f"{r['Payback']:.2f} anos")
