@@ -25,3 +25,14 @@ h1 {
     border-radius: 10px;
     border: 1px solid #2E7D32;
 }
+/* Aplica um fundo cinza bem claro e arredonda os blocos do Streamlit */
+[data-testid="stVerticalBlockBorderWrapper"] > div {
+    background-color: #f8f9fa; /* Cor de fundo bem leve */
+    border-radius: 15px;       /* Cantos bem arredondados */
+    padding: 10px;
+}
+
+/* Remove a borda cinza padrão se quiser um visual ainda mais "clean" */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    border: none !important;
+}
