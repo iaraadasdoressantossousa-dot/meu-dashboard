@@ -64,3 +64,13 @@ h4 {
     padding: 15px;
     margin-bottom: 10px;
 }
+/* Stylepy.css */
+[data-testid="stSidebar"] {
+    background-color: #0e1117; /* Substitua pela cor da EA Makers */
+    color: white;
+}
+
+/* Para mudar a cor dos textos e ícones dentro do menu */
+[data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
+    color: #ffffff;
+}
