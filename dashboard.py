@@ -102,7 +102,7 @@ if uploaded_file is not None:
          )
 
          # Exibindo no Streamlit
-         st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)
     else:
         # Este else avisa se as colunas obrigatórias não foram encontradas
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
