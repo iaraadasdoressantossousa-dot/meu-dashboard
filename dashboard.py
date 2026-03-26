@@ -42,10 +42,10 @@ if uploaded_file is not None:
         with st.container(border=True):
            st.write("### 📊 Performance por Ano")
         
-           col23, col24, col25 = st.columns(3)
-           mapa_colunas ={2023: col23, 2024: col24, 2025: col25}
+           col23, col24, col25, col26, col27 = st.columns(5)
+           mapa_colunas ={2023: col23, 2024: col24, 2025: col25, 2026: col26, 2027: col27}
 
-           for ano in [2023, 2024, 2025]:
+           for ano in [2023, 2024, 2025, 2026, 2027]:
              dados_ano = df[df['ano'] == ano]
              if not dados_ano.empty:
                 r = dados_ano.iloc[0]
