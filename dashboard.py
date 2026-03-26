@@ -35,8 +35,9 @@ if uploaded_file is not None:
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
-        st.write("### Tabela de Dados do usuário")
-        st.dataframe(df)
+        with st.container(border=True):
+           st.write("### Tabela de Dados do usuário")
+           st.dataframe(df)
         # --- MÉTRICAS POR ANO ---
         with st.container(border=True):
             st.write("### 📊 Performance por Ano")
