@@ -17,7 +17,7 @@
 /* 2. TÍTULOS E TEXTOS */
 h1 {
     font-size: 1.6rem !important; /* Diminuído para ganhar espaço */
-    margin-bottom: 0px !important;
+    margin-bottom: 2px !important;
     color: #333;
 }
 
