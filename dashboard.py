@@ -72,7 +72,7 @@ if uploaded_file is not None:
    color="#2E7D32", # Um verde escuro elegante (ou use a cor da sua paleta)
    use_container_width=True
   )
-        st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
+ st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
 
 else:
     st.info("Aguardando upload do arquivo para processar os 3 anos.")
