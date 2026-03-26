@@ -27,7 +27,7 @@ h1 {
 }
 /* Aplica um fundo cinza bem claro e arredonda os blocos do Streamlit */
 [data-testid="stVerticalBlockBorderWrapper"] > div {
-    background-color: #f8f9fa; /* Cor de fundo bem leve */
+    background-color: #d4af37; /* Cor de fundo bem leve */
     border-radius: 15px;       /* Cantos bem arredondados */
     padding: 10px;
 }
