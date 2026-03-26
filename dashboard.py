@@ -59,7 +59,7 @@ if uploaded_file is not None:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         # --- GRÁFICO (Agora dentro do IF de colunas) ---
-        st.write("### 📈 Comparativo de ROI por Ano")
+        st.write("### 📈 Gráfico de ROI ")
         df['ano'] = df['ano'].astype(int).astype(str)
         st.line_chart(
         data=df, 
