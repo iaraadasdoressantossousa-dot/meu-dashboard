@@ -94,32 +94,32 @@ if uploaded_file is not None:
                 with st.container(border=True):
                     st.markdown("#### 📊 Investimento vs Lucro")
                     fig.add_trace(go.Scatter(
-                    x=df_filtrado['ano'], 
-                    y=df_filtrado['Investimento (R$)'],
-                    fill='tozeroy',
-                    name='Investimento',
-                    mode='lines',
-                    line=dict(width=0.5, color='gray'),
-                    fillcolor='rgba(128, 128, 128, 0.3)' # Cinza transparente
+                     x=df_filtrado['ano'], 
+                     y=df_filtrado['Investimento (R$)'],
+                     fill='tozeroy',
+                     name='Investimento',
+                     mode='lines',
+                     line=dict(width=0.5, color='gray'),
+                     fillcolor='rgba(128, 128, 128, 0.3)' # Cinza transparente
                     ))
 
                     # Área de Lucro
                     fig.add_trace(go.Scatter(
-                    x=df_filtrado['ano'], 
-                    y = df_filtrado['Lucro'],
-                    fill='tozeroy',
-                    name='Lucro',
-                    mode='lines',
-                    line=dict(width=2, color='#a9871f'),
-                    fillcolor='rgba(169, 135, 31, 0.5)' # Dourado EA Makers transparente
+                     x=df_filtrado['ano'], 
+                     y = df_filtrado['Lucro'],
+                     fill='tozeroy',
+                     name='Lucro',
+                     mode='lines',
+                     line=dict(width=2, color='#a9871f'),
+                     fillcolor='rgba(169, 135, 31, 0.5)' # Dourado EA Makers transparente
                     ))
 
                     fig.update_layout(
-                    height=300,
-                    margin=dict(l=0, r=0, t=10, b=0),
-                    hovermode="x unified",
-                    xaxis=dict(tickmode='linear'),
-                    template="plotly_white"
+                     height=300,
+                     margin=dict(l=0, r=0, t=10, b=0),
+                     hovermode="x unified",
+                     xaxis=dict(tickmode='linear'),
+                     template="plotly_white"
                     )
 
                     st.plotly_chart(fig, use_container_width=True)
