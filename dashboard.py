@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # 1. Configuração da página
-st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
+st.set_page_config(page_title="Dashboard - EA Makers", layout="wide")
 
 def local_css(file_name):
     try:
