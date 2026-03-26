@@ -58,7 +58,7 @@ if uploaded_file is not None:
                         st.success("✅ Projeto Viável")
                     else:
                         st.error("⚠️ Inviável")
-             else:
+            else:
               mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         # --- GRÁFICO DE BARRAS (Plotly) ---
