@@ -93,6 +93,7 @@ if uploaded_file is not None:
             with col_g2:
                 with st.container(border=True):
                     st.markdown("#### 📊 Investimento vs Lucro")
+                    fig_area = go.Figure()
                     fig.add_trace(go.Scatter(
                      x=df_filtrado['ano'], 
                      y=df_filtrado['Investimento (R$)'],
