@@ -15,8 +15,7 @@ def local_css(file_name):
 local_css("Stylepy.css")
 with st.container(border=True):
   st.title("EA Makers - Dashboard")
-  with st.container(border=True):
-     st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
+  st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
 
 with st.sidebar:
     st.image("yp.jpg")
