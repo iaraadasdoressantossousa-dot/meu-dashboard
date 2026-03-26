@@ -116,7 +116,7 @@ if uploaded_file is not None:
                     buffer = io.BytesIO()
                     with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                         df_filtrado.to_excel(writer, index=False)
-                    st.download_button("𝄜 Baixar Excel (XLSX)", data=buffer.getvalue(), file_name="ea_makers_dados.xlsx", mime="application/vnd.ms-excel", use_container_width=True)
+                    st.download_button("🗂️ Baixar Excel (XLSX)", data=buffer.getvalue(), file_name="ea_makers_dados.xlsx", mime="application/vnd.ms-excel", use_container_width=True)
 
     else:
         st.error(f"Erro: O ficheiro deve conter as colunas: {', '.join(colunas_req)}")
