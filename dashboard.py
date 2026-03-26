@@ -93,10 +93,35 @@ if uploaded_file is not None:
             with col_g2:
                 with st.container(border=True):
                     st.markdown("#### 📊 Investimento vs Lucro")
-                    fig = go.Figure()
-                    fig.add_trace(go.Bar(x=df_filtrado['ano'], y=df_filtrado['Investimento (R$)'], name='Investimento', marker_color='#a9871f'))
-                    fig.add_trace(go.Bar(x=df_filtrado['ano'], y=df_filtrado['Lucro'], name='Lucro', marker_color='#0097A7'))
-                    fig.update_layout(barmode='group', height=280, margin=dict(l=0, r=0, t=10, b=0), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+                    fig.add_trace(go.Scatter(
+                    x=df_filtrado['ano'], 
+                    y=df_filtrado['Investimento (R$)'],
+                    fill='tozeroy',
+                    name='Investimento',
+                    mode='lines',
+                    line=dict(width=0.5, color='gray'),
+                    fillcolor='rgba(128, 128, 128, 0.3)' # Cinza transparente
+                    ))
+
+                    # Área de Lucro
+                    fig.add_trace(go.Scatter(
+                    x=df_filtrado['ano'], 
+                    y = df_filtrado['Lucro'],
+                    fill='tozeroy',
+                    name='Lucro',
+                    mode='lines',
+                    line=dict(width=2, color='#a9871f'),
+                    fillcolor='rgba(169, 135, 31, 0.5)' # Dourado EA Makers transparente
+                    ))
+
+                    fig.update_layout(
+                    height=300,
+                    margin=dict(l=0, r=0, t=10, b=0),
+                    hovermode="x unified",
+                    xaxis=dict(tickmode='linear'),
+                    template="plotly_white"
+                    )
+
                     st.plotly_chart(fig, use_container_width=True)
 
         # --- PÁGINA: TABELA DE DADOS ---
