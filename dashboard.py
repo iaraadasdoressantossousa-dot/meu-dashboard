@@ -1,4 +1,4 @@
-pegue esse meu código aqui e faça essa transformação:                                                                                 import streamlit as st
+import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 # 1. Configuração da página
@@ -63,14 +63,14 @@ if uploaded_file is not None:
         st.write("### 📈 Gráfico de ROI ")
         df['ano'] = df['ano'].astype(int).astype(str)
         st.line_chart(
-        data=df, 
-        x="ano", 
-        y="ROI", 
-        x_label="Ano de Operação", 
-        y_label="Retorno sobre Investimento (%)", 
-        color="#2E7D32", 
-        use_container_width=True
-        )
+         data=df, 
+         x="ano", 
+         y="ROI", 
+         x_label="Ano de Operação", 
+         y_label="Retorno sobre Investimento (%)", 
+         color="#2E7D32", 
+         use_container_width=True
+         )
         st.write("### 📊 Comparativo: Investimento vs Lucro")
 
         # Criando o gráfico com Plotly
@@ -82,14 +82,14 @@ if uploaded_file is not None:
           y=df['Investimento (R$)'],
           name='Investimento',
           marker_color='#E53935' # Vermelho para saída/custo
-        ))
+          ))
 
         # Barra de Lucro
         fig.add_trace(go.Bar(
-         x=df['ano'],
-         y=df['Lucro'],
-         name='Lucro',
-         marker_color='#2E7D32' # Verde para entrada/retorno
+          x=df['ano'],
+          y=df['Lucro'],
+          name='Lucro',
+          marker_color='#2E7D32' # Verde para entrada/retorno
         ))
 
         # Ajustando o layout para barras duplas (lado a lado)
