@@ -195,7 +195,5 @@ if uploaded_file is not None:
     else:
         st.error("Arquivo com colunas incorretas")
 
- else:
-    st.info("Envie um arquivo para começar")
 else:
-    st.info("Aguardando upload do arquivo para processar os dados.")
+    st.info("Envie um arquivo para começar")
