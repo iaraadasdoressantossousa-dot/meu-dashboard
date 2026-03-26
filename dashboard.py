@@ -108,11 +108,11 @@ if uploaded_file is not None:
           with col2.container(border=True):
            st.markdown("#### 📊 Investimento vs Lucro")
 
-           fig.update_layout(
-           height=400  # 👈 mesma altura aqui
-          )
+            fig.update_layout(
+            height=400  # 👈 mesma altura aqui
+           )
 
-          st.plotly_chart(fig, use_container_width=True)
+           st.plotly_chart(fig, use_container_width=True)
 
     else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
