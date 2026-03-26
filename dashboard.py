@@ -95,8 +95,7 @@ if uploaded_file is not None:
         col1, col2 = st.columns(2)
 
         # --- GRÁFICO 1: ROI ---
-      with st.container(border=True):
-        with col1:
+        with col1.container(border=True):
           st.markdown("#### 📈 ROI por Ano")
           st.line_chart(
            data= df,
@@ -107,8 +106,7 @@ if uploaded_file is not None:
           )
 
         # --- GRÁFICO 2: Investimento vs Lucro ---
-     with st.container(border=True):
-        with col2:
+        with col2.container(border=True):
          st.markdown("#### 📊 Investimento vs Lucro")
 
          fig.update_layout(
