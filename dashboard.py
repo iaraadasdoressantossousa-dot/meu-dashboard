@@ -19,7 +19,7 @@ st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que r
 
 with st.sidebar:
     st.image("yp.jpg")
-    st.title("Menu de Navegação")
+    st.title("Menu - Dashboard")
     uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
