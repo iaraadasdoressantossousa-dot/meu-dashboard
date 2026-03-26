@@ -69,6 +69,8 @@ if uploaded_file is not None:
         y_label="Retorno sobre Investimento (%)", 
         color="#2E7D32", 
         use_container_width=True
+        paper_bgcolor='rgba(46, 125, 50, 0.05)', # Cor de fundo externa (verde bem clarinho)
+        plot_bgcolor='rgba(0,0,0,0)',
         )
         st.write("### 📊 Comparativo: Investimento vs Lucro")
 
