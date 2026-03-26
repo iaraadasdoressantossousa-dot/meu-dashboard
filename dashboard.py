@@ -110,7 +110,7 @@ if uploaded_file is not None:
                 
                 with btn_csv:
                     csv = df_filtrado.to_csv(index=False).encode('utf-8')
-                    st.download_button("Baixar CSV", data=csv, file_name="ea_makers_dados.csv", mime="text/csv", use_container_width=True)
+                    st.download_button("📄 Baixar CSV", data=csv, file_name="ea_makers_dados.csv", mime="text/csv", use_container_width=True)
                 
                 with btn_xlsx:
                     buffer = io.BytesIO()
