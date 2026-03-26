@@ -25,28 +25,14 @@ h1 {
     border-radius: 10px;
     border: 1px solid #2E7D32;
 }
-/* Força o fundo de TODOS os containers que possuem borda no Streamlit */
-div[data-testid="stVerticalBlockBorderWrapper"] {
-    background-color: #a9871fd5 !important;
-    border-radius: 15px !important;
+/* Aplica um fundo cinza bem claro e arredonda os blocos do Streamlit */
+[data-testid="stVerticalBlockBorderWrapper"] > div {
+    background-color: #f8f9fa; /* Cor de fundo bem leve */
+    border-radius: 15px;       /* Cantos bem arredondados */
+    padding: 10px;
+}
+
+/* Remove a borda cinza padrão se quiser um visual ainda mais "clean" */
+[data-testid="stVerticalBlockBorderWrapper"] {
     border: none !important;
-    padding: 15px !important;
-    margin-bottom: 10px !important;
-}
-
-/* Força a cor branca nos textos para leitura sobre o dourado */
-div[data-testid="stVerticalBlockBorderWrapper"] p, 
-div[data-testid="stVerticalBlockBorderWrapper"] h1, 
-div[data-testid="stVerticalBlockBorderWrapper"] h2, 
-div[data-testid="stVerticalBlockBorderWrapper"] h3,
-div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stMetricLabel"],
-div[data-testid="stVerticalBlockBorderWrapper"] [data-testid="stMetricValue"] {
-    color: white !important;
-}
-
-/* Deixa os cards internos das métricas (os sub-quadrados) levemente mais escuros ou claros 
-   para dar profundidade, ou remova se quiser tudo liso */
-div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stVerticalBlock"] > div {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border-radius: 10px !important;
 }
