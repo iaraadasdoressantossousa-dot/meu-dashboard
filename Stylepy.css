@@ -36,3 +36,13 @@ h1 {
 [data-testid="stVerticalBlockBorderWrapper"] {
     border: none !important;
 }
+/* Stylepy.css */
+[data-testid="stSidebar"] {
+    background-color: #0e1117; /* Substitua pela cor da EA Makers */
+    color: white;
+}
+
+/* Para mudar a cor dos textos e ícones dentro do menu */
+[data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
+    color: #ffffff;
+}
