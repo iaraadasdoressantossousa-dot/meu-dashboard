@@ -18,7 +18,6 @@ local_css("Stylepy.css")
 
 # --- SIDEBAR (MENU LATERAL) ---
 with st.sidebar:
-    # Tenta carregar a logo, se não existir, usa apenas o texto
     try:
         st.image("yp.jpg", use_container_width=True)
     except:
@@ -39,16 +38,16 @@ if uploaded_file is not None:
     else:
         df = pd.read_excel(uploaded_file)
 
-    # Colunas necessárias para os cálculos da EA Makers
+    # Colunas necessárias
     colunas_req = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
     
     if all(col in df.columns for col in colunas_req):
-        # Cálculos de Engenharia Financeira
+        # Cálculos
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
 
-        # Filtro de Anos Dinâmico na Sidebar
+        # Filtro de Anos
         with st.sidebar:
             st.divider()
             anos_disponiveis = sorted(df['ano'].unique())
@@ -58,95 +57,19 @@ if uploaded_file is not None:
 
         # --- PÁGINA: DASHBOARD ---
         if pagina == "Dashboard":
-          with st.container(border=True):
-            st.markdown("<h2 style='text-align: center;'>Dashboard</h2>", unsafe_allow_html=True)
-            st.markdown("<h1 style='text-align: center;'>Resultados de KPIs anuais</h1>", unsafe_allow_html=True)
-            # Métricas por Ano em Colunas Dinâmicas
-            if anos_selecionados:
-                cols = st.columns(len(anos_selecionados))
-                for ano, col in zip(anos_selecionados, cols):
-                    dados_ano = df_filtrado[df_filtrado['ano'] == ano]
-                    with col:
-                        st.markdown(f"#### {ano}")
-                        if not dados_ano.empty:
-                            r = dados_ano.iloc[0]
-                            with st.container(border=True): # Borda Dourada aplicada via CSS
-                                st.metric("ROI", f"{r['ROI']:.1f}%")
-                                st.metric("Payback", f"{r['Payback']:.2f} anos")
-                                st.metric("Savings", f"R${r['Savings']:,.0f}")
-                                
-                                if r['ROI'] > 50:
-                                    st.success("☑ Viável")
-                                else:
-                                    st.error("☒ Inviável")
-            
-            st.divider()
-            st.markdown("<h1 style='text-align: center;'>Gráficos</h1>", unsafe_allow_html=True)
-            # Gráficos Lado a Lado
-            col_g1, col_g2 = st.columns(2)
-
-            with col_g1:
-                with st.container(border=True):
-                    st.markdown("#### 📈 Evolução do ROI (%)")
-                    st.line_chart(df_filtrado, x="ano", y="ROI", height=280)
-
-            with col_g2:
-                with st.container(border=True):
-                    st.markdown("#### 📊 Investimento vs Lucro")
-                    fig_area = go.Figure()
-                    fig_area.add_trace(go.Scatter(
-                     x=df_filtrado['ano'], 
-                     y=df_filtrado['Investimento (R$)'],
-                     fill='tozeroy',
-                     name='Investimento',
-                     mode='lines',
-                     line=dict(width=0.5, color='gray'),
-                     fillcolor='rgba(128, 128, 128, 0.3)' # Cinza transparente
-                    ))
-
-                    # Área de Lucro
-                    fig_area.add_trace(go.Scatter(
-                     x=df_filtrado['ano'], 
-                     y = df_filtrado['Lucro'],
-                     fill='tozeroy',
-                     name='Lucro',
-                     mode='lines',
-                     line=dict(width=2, color='#a9871f'),
-                     fillcolor='rgba(169, 135, 31, 0.5)' # Dourado EA Makers transparente
-                    ))
-
-                    fig_area.update_layout(
-                     height=300,
-                     margin=dict(l=0, r=0, t=10, b=0),
-                     hovermode="x unified",
-                     xaxis=dict(tickmode='linear'),
-                     template="plotly_white"
-                    )
-
-                    st.plotly_chart(fig_area, use_container_width=True)
-
-        
-        # --- PÁGINA: TABELA DE DADOS ---
-        elif pagina == "Visualizar base de dados":
-            st.title("Base de Dados do usuário")
             with st.container(border=True):
-                st.dataframe(df_filtrado, use_container_width=True, height=400)
+                st.markdown("<h2 style='text-align: center;'>Dashboard</h2>", unsafe_allow_html=True)
+                st.markdown("<h1 style='text-align: center;'>Resultados de KPIs anuais</h1>", unsafe_allow_html=True)
                 
-                st.markdown("### Exportar Resultados")
-                btn_csv, btn_xlsx = st.columns(2)
-                
-                with btn_csv:
-                    csv = df_filtrado.to_csv(index=False).encode('utf-8')
-                    st.download_button("📄 Baixar CSV", data=csv, file_name="ea_makers_dados.csv", mime="text/csv", use_container_width=True)
-                
-                with btn_xlsx:
-                    buffer = io.BytesIO()
-                    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-                        df_filtrado.to_excel(writer, index=False)
-                    st.download_button("🗂️ Baixar Excel (XLSX)", data=buffer.getvalue(), file_name="ea_makers_dados.xlsx", mime="application/vnd.ms-excel", use_container_width=True)
-
-    else:
-        st.error(f"Erro: O ficheiro deve conter as colunas: {', '.join(colunas_req)}")
-else:
-    st.title("Dashboard dinâmico - EA Makers")
-    st.info(" Bem-vindo! Por favor, faça o upload da base de dados no menu lateral para começar.")
+                if anos_selecionados:
+                    cols = st.columns(len(anos_selecionados))
+                    for ano, col in zip(anos_selecionados, cols):
+                        dados_ano = df_filtrado[df_filtrado['ano'] == ano]
+                        with col:
+                            st.markdown(f"#### {ano}")
+                            if not dados_ano.empty:
+                                r = dados_ano.iloc[0]
+                                with st.container(border=True):
+                                    st.metric("ROI", f"{r['ROI']:.1f}%")
+                                    st.metric("Payback", f"{r['Payback']:.2f} anos")
+                                    st.metric("Savings", f"R${r['Savings']:,.
