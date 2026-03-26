@@ -113,7 +113,7 @@ if uploaded_file is not None:
             # SEGUNDA LINHA DE GRÁFICOS (GRÁFICO DE PIZZA/ROSCA)
             st.markdown("---")
             with st.container(border=True):
-                st.markdown("#### Composição Financeira Acumulada (Período Selecionado)")
+                st.markdown("#### Composição Financeira Acumulada")
                 
                 total_invest = df_filtrado['Investimento (R$)'].sum()
                 total_lucro = df_filtrado['Lucro'].sum()
