@@ -58,6 +58,7 @@ if uploaded_file is not None:
 
         # --- PÁGINA: DASHBOARD ---
         if pagina == "📊 Dashboard":
+          with st.container(border=True):
             st.markdown("<h1 style='text-align: center;'>Dashboard</h1>", unsafe_allow_html=True)
             
             # Métricas por Ano em Colunas Dinâmicas
