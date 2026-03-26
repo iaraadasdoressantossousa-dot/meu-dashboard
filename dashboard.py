@@ -91,20 +91,26 @@ if uploaded_file is not None:
 
         col1, col2 = st.columns(2)
 
-        # ROI
+        # --- GRÁFICO 1: ROI ---
         with col1:
-            st.markdown("#### 📈 ROI por Ano")
-            st.line_chart(
-                data=df,
-                x="ano",
-                y="ROI",
-                use_container_width=True
-            )
+          st.markdown("#### 📈 ROI por Ano")
+          st.line_chart(
+           data=df,
+           x="ano",
+           y="ROI",
+           use_container_width=True,
+           height=400  # 👈 define altura
+          )
 
-        # Investimento vs Lucro
+        # --- GRÁFICO 2: Investimento vs Lucro ---
         with col2:
-            st.markdown("#### 📊 Investimento vs Lucro")
-            st.plotly_chart(fig, use_container_width=True)
+         st.markdown("#### 📊 Investimento vs Lucro")
+
+         fig.update_layout(
+         height=400  # 👈 mesma altura aqui
+         )
+
+         st.plotly_chart(fig, use_container_width=True)
 
     else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
