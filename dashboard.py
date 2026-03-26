@@ -45,8 +45,8 @@ if uploaded_file is not None:
 
         for ano in [2023, 2024, 2025]:
             dados_ano = df[df['ano'] == ano]
-            
-            if not dados_ano.empty:
+            with col:
+             if not dados_ano.empty:
                 r = dados_ano.iloc[0]
                 with st.container(border=True):
                     st.markdown(f"#### Ano {ano}")
@@ -58,7 +58,7 @@ if uploaded_file is not None:
                         st.success("✅ Projeto Viável")
                     else:
                         st.error("⚠️ Inviável")
-            else:
+             else:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         # --- GRÁFICO DE BARRAS (Plotly) ---
