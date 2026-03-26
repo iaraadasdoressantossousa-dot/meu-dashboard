@@ -45,10 +45,9 @@ if uploaded_file is not None:
 
         for ano in [2023, 2024, 2025]:
             dados_ano = df[df['ano'] == ano]
-            with col:
              if not dados_ano.empty:
                 r = dados_ano.iloc[0]
-                with st.container(border=True):
+                with mapa_colunas[ano]:
                     st.markdown(f"#### Ano {ano}")
                     st.metric("ROI", f"{r['ROI']:.1f}%")
                     st.metric("Payback", f"{r['Payback']:.2f} anos")
