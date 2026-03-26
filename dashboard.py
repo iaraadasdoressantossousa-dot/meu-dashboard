@@ -72,4 +72,87 @@ if uploaded_file is not None:
                                 with st.container(border=True):
                                     st.metric("ROI", f"{r['ROI']:.1f}%")
                                     st.metric("Payback", f"{r['Payback']:.2f} anos")
-                                    st.metric("Savings", f"R${r['Savings']:,.
+                                    st.metric("Savings", f"R${r['Savings']:,.0f}")
+                                    
+                                    if r['ROI'] > 50:
+                                        st.success("☑ Viável")
+                                    else:
+                                        st.error("☒ Inviável")
+            
+            st.divider()
+            st.markdown("<h1 style='text-align: center;'>Análises Visuais</h1>", unsafe_allow_html=True)
+            
+            # PRIMEIRA LINHA DE GRÁFICOS (ROI e Área)
+            col_g1, col_g2 = st.columns(2)
+
+            with col_g1:
+                with st.container(border=True):
+                    st.markdown("#### 📈 Evolução do ROI (%)")
+                    st.line_chart(df_filtrado, x="ano", y="ROI", height=280)
+
+            with col_g2:
+                with st.container(border=True):
+                    st.markdown("#### 📊 Investimento vs Lucro")
+                    fig_area = go.Figure()
+                    fig_area.add_trace(go.Scatter(
+                        x=df_filtrado['ano'], y=df_filtrado['Investimento (R$)'],
+                        fill='tozeroy', name='Investimento', mode='lines',
+                        line=dict(width=0.5, color='gray'),
+                        fillcolor='rgba(128, 128, 128, 0.3)'
+                    ))
+                    fig_area.add_trace(go.Scatter(
+                        x=df_filtrado['ano'], y=df_filtrado['Lucro'],
+                        fill='tonexty', name='Lucro', mode='lines',
+                        line=dict(width=2, color='#a9871f'),
+                        fillcolor='rgba(169, 135, 31, 0.5)'
+                    ))
+                    fig_area.update_layout(height=300, margin=dict(l=0, r=0, t=10, b=0), hovermode="x unified", template="plotly_white")
+                    st.plotly_chart(fig_area, use_container_width=True)
+
+            # SEGUNDA LINHA DE GRÁFICOS (GRÁFICO DE PIZZA/ROSCA)
+            st.markdown("---")
+            with st.container(border=True):
+                st.markdown("#### 🍕 Composição Financeira Acumulada (Período Selecionado)")
+                
+                total_invest = df_filtrado['Investimento (R$)'].sum()
+                total_lucro = df_filtrado['Lucro'].sum()
+
+                fig_pie = go.Figure(data=[go.Pie(
+                    labels=['Investimento Total', 'Lucro Líquido'],
+                    values=[total_invest, total_lucro],
+                    hole=.4,
+                    marker_colors=['#d3d3d3', '#a9871f'],
+                    textinfo='percent+label',
+                    pull=[0, 0.1] # Pequeno destaque no lucro
+                )])
+
+                fig_pie.update_layout(
+                    height=350,
+                    margin=dict(l=20, r=20, t=30, b=20),
+                    legend=dict(orientation="h", yanchor="bottom", y=-0.1, xanchor="center", x=0.5)
+                )
+                st.plotly_chart(fig_pie, use_container_width=True)
+
+        # --- PÁGINA: TABELA DE DADOS ---
+        elif pagina == "Visualizar base de dados":
+            st.title("Base de Dados do usuário")
+            with st.container(border=True):
+                st.dataframe(df_filtrado, use_container_width=True, height=400)
+                st.markdown("### Exportar Resultados")
+                btn_csv, btn_xlsx = st.columns(2)
+                
+                with btn_csv:
+                    csv = df_filtrado.to_csv(index=False).encode('utf-8')
+                    st.download_button("📄 Baixar CSV", data=csv, file_name="ea_makers_dados.csv", mime="text/csv", use_container_width=True)
+                
+                with btn_xlsx:
+                    buffer = io.BytesIO()
+                    with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+                        df_filtrado.to_excel(writer, index=False)
+                    st.download_button("🗂️ Baixar Excel (XLSX)", data=buffer.getvalue(), file_name="ea_makers_dados.xlsx", mime="application/vnd.ms-excel", use_container_width=True)
+
+    else:
+        st.error(f"Erro: O ficheiro deve conter as colunas: {', '.join(colunas_req)}")
+else:
+    st.title("Dashboard dinâmico - EA Makers")
+    st.info("Bem-vindo! Por favor, faça o upload da base de dados no menu lateral para começar.")
