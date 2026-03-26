@@ -60,7 +60,7 @@ if uploaded_file is not None:
 
         # --- GRÁFICO (Agora dentro do IF de colunas) ---
         st.write("### 📈 Comparativo de ROI por Ano")
-        st.bar_chart(
+        st.line_chart(
             data=df, 
             x="ano", 
             y="ROI", 
