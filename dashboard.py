@@ -62,7 +62,7 @@ if uploaded_file is not None:
             st.markdown("<h2 style='text-align: center;'>Dashboard</h2>", unsafe_allow_html=True)
             st.markdown("<h1 style='text-align: center;'>Resultados de KPIs anuais</h1>", unsafe_allow_html=True)
                 
-                if anos_selecionados:
+            if anos_selecionados:
                     cols = st.columns(len(anos_selecionados))
                     for ano, col in zip(anos_selecionados, cols):
                         dados_ano = df_filtrado[df_filtrado['ano'] == ano]
