@@ -20,7 +20,7 @@ with st.sidebar:
     st.title("EA Makers")
     
     # Navegação entre páginas
-    pagina = st.radio("Navegação", ["Dashboard", "Tabela de Dados"])
+    pagina = st.radio("Navegação", ["Dashboard", "Visualizar dados"])
     
     st.divider()
     uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
