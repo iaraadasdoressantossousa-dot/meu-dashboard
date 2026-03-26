@@ -86,7 +86,7 @@ if uploaded_file is not None:
               yaxis_title="Valor (R$)",
               legend_title="Indicadores",
               template="plotly_white",
-              margin=dict(l=20, r=20, t=20, b=20)
+              margin=dict(l=10, r=10, t=30, b=10)
           )
           # --- GRÁFICOS LADO A LADO ---
           st.write("### 📊 Análises Visuais")
@@ -101,7 +101,7 @@ if uploaded_file is not None:
             x="ano",
             y="ROI",
             use_container_width=True,
-            height=400,
+            height=300,
            )
 
           # --- GRÁFICO 2: Investimento vs Lucro ---
@@ -109,7 +109,7 @@ if uploaded_file is not None:
             st.markdown("#### 📊 Investimento vs Lucro")
 
             fig.update_layout(
-            height=400  # 👈 mesma altura aqui
+            height=300  # 👈 mesma altura aqui
             )
 
             st.plotly_chart(fig, use_container_width=True)
