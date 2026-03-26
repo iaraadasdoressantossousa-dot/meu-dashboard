@@ -60,7 +60,7 @@ if uploaded_file is not None:
         if pagina == "Dashboard":
           with st.container(border=True):
             st.markdown("<h1 style='text-align: center;'>Dashboard</h1>", unsafe_allow_html=True)
-            st.markdown('<h2 style='text-align: center;'>Resultados de KPIs</h2>', unsafe_allow_html=true)
+            st.markdown("<h2 style='text-align: center;'>Resultados de KPIs</h2>", unsafe_allow_html=True)
             # Métricas por Ano em Colunas Dinâmicas
             if anos_selecionados:
                 cols = st.columns(len(anos_selecionados))
