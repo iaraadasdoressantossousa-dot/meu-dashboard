@@ -86,7 +86,7 @@ if uploaded_file is not None:
                 st.plotly_chart(fig, use_container_width=True)
 
         # --- PÁGINA 2: TABELA DE DADOS ---
-        elif pagina == "Tabela de Dados":
+        elif pagina == "Visualizar dados":
             st.title("Base de Dados")
             with st.container(border=True):
                 st.write("### Dados Brutos (Filtrados)")
