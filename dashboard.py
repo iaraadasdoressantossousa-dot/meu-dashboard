@@ -101,7 +101,7 @@ if uploaded_file is not None:
           legend_title="Indicadores",
           template="plotly_white",
           margin=dict(l=20, r=20, t=20, b=20)
-          )
+         )
 
          # Exibindo no Streamlit
          st.plotly_chart(fig, use_container_width=True)
