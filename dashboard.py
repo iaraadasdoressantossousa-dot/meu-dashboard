@@ -123,7 +123,7 @@ if uploaded_file is not None:
                      template="plotly_white"
                     )
 
-                    st.plotly_chart(fig, use_container_width=True)
+                    st.plotly_chart(fig_area, use_container_width=True)
 
         # --- PÁGINA: TABELA DE DADOS ---
         elif pagina == "Visualizar base de dados":
