@@ -33,7 +33,7 @@ if uploaded_file is not None:
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
 
-        st.write("### Tabela de Dados Calculada")
+        st.write("### Tabela de Dados do usuário")
         st.dataframe(df)
 
         # --- MÉTRICAS POR ANO ---
