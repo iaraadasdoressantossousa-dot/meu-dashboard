@@ -63,31 +63,31 @@ if uploaded_file is not None:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         # --- GRÁFICO DE BARRAS (Plotly) ---
-        fig = go.Figure()
-
-        fig.add_trace(go.Bar(
-            x=df['ano'],
-            y=df['Investimento (R$)'],
-            name='Investimento',
-            marker_color='#FFEB3B'
-        ))
-
-        fig.add_trace(go.Bar(
-            x=df['ano'],
-            y=df['Lucro'],
-            name='Lucro',
-            marker_color='#0097A7'
-        ))
-
-        fig.update_layout(
-            barmode='group',
-            xaxis_title="Ano de Operação",
-            yaxis_title="Valor (R$)",
-            legend_title="Indicadores",
-            template="plotly_white",
-            margin=dict(l=20, r=20, t=20, b=20)
-        )
         with st.container(border=True):
+          fig = go.Figure()
+
+          fig.add_trace(go.Bar(
+              x=df['ano'],
+              y=df['Investimento (R$)'],
+              name='Investimento',
+              marker_color='#FFEB3B'
+          ))
+
+          fig.add_trace(go.Bar(
+              x=df['ano'],
+              y=df['Lucro'],
+              name='Lucro',
+              marker_color='#0097A7'
+          ))
+
+          fig.update_layout(
+              barmode='group',
+              xaxis_title="Ano de Operação",
+              yaxis_title="Valor (R$)",
+              legend_title="Indicadores",
+              template="plotly_white",
+              margin=dict(l=20, r=20, t=20, b=20)
+          )
           # --- GRÁFICOS LADO A LADO ---
           st.write("### 📊 Análises Visuais")
 
