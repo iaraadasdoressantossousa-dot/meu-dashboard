@@ -25,7 +25,7 @@ with st.sidebar:
         st.title("EA MAKERS")
     
     st.markdown("### Navegação")
-    pagina = st.radio( ["📊 Dashboard", "📅 Visualizar base de dados"])
+    pagina = st.radio('', ["📊 Dashboard", "📅 Visualizar base de dados"])
     
     st.divider()
     st.markdown("### Dados")
