@@ -9,7 +9,7 @@ def local_css(file_name):
         with open(file_name) as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     except FileNotFoundError:
-        pass # Silencioso se o CSS não existir
+        pass 
 
 local_css("Stylepy.css")
 
@@ -19,25 +19,24 @@ st.subheader("Análise (2023 - 2025)")
 uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
-    # 4. Ler o arquivo
+    # Ler o arquivo
     df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
 
-    # Verificação de colunas (conforme sua imagem)
+    # Verificação de colunas
     colunas_obrigatorias = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
     
     if all(col in df.columns for col in colunas_obrigatorias):
-        
-        # --- CÁLCULOS GERAIS (Vetorizados) ---
+        # --- CÁLCULOS GERAIS ---
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
-        # Cálculo de Savings (considerando 160h mensais)
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
+        
         st.write("### Tabela de Dados Calculada")
         st.dataframe(df)
+
         # --- EXIBIÇÃO POR ANO ---
         st.write("### 📊 Performance por Ano")
         
-        # Criando 3 colunas para 2023, 2024 e 2025
         col23, col24, col25 = st.columns(3)
         mapa_colunas = {2023: col23, 2024: col24, 2025: col25}
 
@@ -45,7 +44,6 @@ if uploaded_file is not None:
             dados_ano = df[df['ano'] == ano]
             
             if not dados_ano.empty:
-                # Extraindo valores únicos daquela linha/ano
                 r = dados_ano.iloc[0]
                 with mapa_colunas[ano]:
                     st.markdown(f"#### Ano {ano}")
@@ -53,7 +51,6 @@ if uploaded_file is not None:
                     st.metric("Payback", f"{r['Payback']:.2f} anos")
                     st.metric("Savings", f"R$ {r['Savings']:,.2f}")
                     
-                    # Lógica de viabilidade individual
                     if r['ROI'] > 50:
                         st.success("✅ Projeto Viável")
                     else:
@@ -61,18 +58,20 @@ if uploaded_file is not None:
             else:
                 mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
- 
-       st.write("### 📈 Comparativo de ROI por Ano")
-       st.bar_chart(
-       data=df, 
-       x="ano", 
-       y="ROI", 
-       x_label="Ano de Operação", 
-       y_label="Retorno sobre Investimento (%)", 
-       color="#2E7D32", # Um verde escuro elegante (ou use a cor da sua paleta)
-       use_container_width=True
-       )
- st.error(f"O arquivo precisa conter: {colunas_obrigatorias}")
+        # --- GRÁFICO (Agora dentro do IF de colunas) ---
+        st.write("### 📈 Comparativo de ROI por Ano")
+        st.bar_chart(
+            data=df, 
+            x="ano", 
+            y="ROI", 
+            x_label="Ano de Operação", 
+            y_label="Retorno sobre Investimento (%)", 
+            color="#2E7D32", 
+            use_container_width=True
+        )
+    else:
+        # Este else avisa se as colunas obrigatórias não foram encontradas
+        st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
 
 else:
     st.info("Aguardando upload do arquivo para processar os 3 anos.")
