@@ -101,7 +101,8 @@ if uploaded_file is not None:
            x=df["ano"],
            y=df["ROI"],
            use_container_width=True,
-           height=400  # 👈 define altura
+           height=400  # 👈 define altura,
+           line_color='#0097A7'
           )
 
         # --- GRÁFICO 2: Investimento vs Lucro ---
