@@ -59,7 +59,7 @@ if uploaded_file is not None:
                     else:
                         st.error("⚠️ Inviável")
             else:
-              mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
+               mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
         # --- GRÁFICO DE BARRAS (Plotly) ---
         fig = go.Figure()
