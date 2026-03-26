@@ -48,6 +48,15 @@ h4 {
 [data-testid="stSidebar"] {
     background-color: #f8f9fa !important;
 }
+.stButton>button {
+    background-color: #987807 !important;
+    color: white !important;
+    border-radius: 10px;
+    border: none;
+    height: 3em;
+    width: 100%;
+}
+
 
 /* Estilizando o container padrão do Streamlit */
 [data-testid="stVerticalBlockBorderWrapper"] {
