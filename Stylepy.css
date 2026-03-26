@@ -1,88 +1,80 @@
-/* 1. Diminuir o título principal e subheader */
-h1 {
-    font-size: 1.8rem !important;
-    margin-bottom: 0px !important;
+/* 1. ESTRUTURA GERAL E ESPAÇAMENTO */
+.block-container {
+    padding-top: 1rem !important;
+    padding-bottom: 0rem !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
 }
 
-h3 {
-    font-size: 1.2rem !important;
-    margin-top: 0px !important;
+[data-testid="stVerticalBlock"] {
+    gap: 0.5rem !important;
 }
 
-/* 2. Diminuir as métricas (ROI, Payback, Savings) */
-/* O rótulo (Label) */
-[data-testid="stMetricLabel"] {
-    font-size: 0.8rem !important;
-}
-
-/* O valor numérico */
-[data-testid="stMetricValue"] {
-    font-size: 1.5rem !important;
-}
-
-/* 3. Diminuir os textos dentro dos containers/cards */
-.stMarkdown p {
-    font-size: 0.9rem !important;
-    line-height: 1.2 !important;
-}
-
-/* 4. Ajustar os títulos das colunas (Ano 2023, etc) */
-h4 {
-    font-size: 1rem !important;
-    text-align: center;
-
-/* Deixar os botões com o dourado da EA Makers */
-.stButton>button {
-    background-color: #a9871fd5 !important;
-    color: white !important;
-    border-radius: 10px;
-    border: none;
-    height: 3em;
-    width: 100%;
-}
-
-/* Mudar a cor de fundo da página */
 .stApp {
     background-color: #f2f2f2;
 }
-/* Fundo para todos os blocos de métricas */
-[data-testid="stMetric"] {
-    background-color: #f0f2f6;
-    padding: 15px;
-    border-radius: 10px;
-    border: 2px solid #a9871fd5;
-}
-/* Aplica um fundo cinza bem claro e arredonda os blocos do Streamlit */
-[data-testid="stVerticalBlockBorderWrapper"] > div {
-    background-color: #d4af37; /* Cor de fundo bem leve */
-    border-radius: 15px;       /* Cantos bem arredondados */
-    padding: 10px;
+
+/* 2. TÍTULOS E TEXTOS */
+h1 {
+    font-size: 1.6rem !important; /* Diminuído para ganhar espaço */
+    margin-bottom: 0px !important;
+    color: #333;
 }
 
-/* Remove a borda cinza padrão se quiser um visual ainda mais "clean" */
+h3 {
+    font-size: 1.1rem !important;
+    margin-top: 0px !important;
+    color: #666;
+}
+
+h4 {
+    font-size: 0.9rem !important;
+    text-align: center;
+    margin-bottom: 5px !important;
+}
+
+.stMarkdown p {
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+}
+
+/* 3. CARDS DE MÉTRICAS E BORDAS DOURADAS */
+/* Estilo para o container que envolve as métricas */
 [data-testid="stVerticalBlockBorderWrapper"] {
-    border: none !important;
+    border: 2px solid #a9871fd5 !important; /* Dourado EA Makers */
+    border-radius: 15px !important;
+    background-color: #ffffff !important;
+    padding: 10px !important;
 }
-/* Stylepy.css */
+
+/* Ajuste das fontes dentro da métrica */
+[data-testid="stMetricLabel"] {
+    font-size: 0.75rem !important;
+}
+
+[data-testid="stMetricValue"] {
+    font-size: 1.3rem !important;
+    font-weight: bold !important;
+}
+
+/* 4. SIDEBAR (MENU LATERAL) */
 [data-testid="stSidebar"] {
-    background-color: #E5E4E2; /* Substitua pela cor da EA Makers */
-    color: black;
+    background-color: #E5E4E2 !important;
+    color: #000000 !important;
 }
 
-/* Para mudar a cor dos textos e ícones dentro do menu */
+/* Corrigido o erro no seletor de cor branca */
 [data-testid="stSidebar"] .stMarkdown, [data-testid="stSidebar"] label {
-    color: #fffff;
-}
-/* Stylepy.css */
-/* Remove o espaço em branco no topo do dashboard */
-.block-container {
-    padding-top: 1rem;
-    padding-bottom: 0rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    color: #333333 !important; 
 }
 
-/* Diminui o espaço entre os elementos (widgets) */
-[data-testid="stVerticalBlock"] {
-    gap: 0.5rem;
+/* 5. BOTÕES PERSONALIZADOS */
+.stButton>button {
+    background-color: #a9871fd5 !important;
+    color: white !important;
+    border-radius: 10px !important;
+    border: none !important;
+    height: 2.5em !important; /* Diminuído levemente */
+    width: 100%;
+    font-weight: bold;
 }
