@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import io
 
 # 1. Configuração da página para ocupar a tela toda
-st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
+st.set_page_config(page_title="EA Makers - Dashboard", layout="wide")
 
 # 2. Função para carregar o CSS personalizado
 def local_css(file_name):
@@ -25,7 +25,7 @@ with st.sidebar:
         st.title("EA MAKERS")
     
     st.markdown("### Navegação")
-    pagina = st.radio("Ir para:", ["📊 Dashboard", "📅 Visualizar base de dados"])
+    pagina = st.radio( ["📊 Dashboard", "📅 Visualizar base de dados"])
     
     st.divider()
     st.markdown("### Dados")
