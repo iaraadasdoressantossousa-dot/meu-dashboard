@@ -2,122 +2,159 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 
-# 1. Configuração da página
+# ---------------- CONFIGURAÇÃO ----------------
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
-# --- INJEÇÃO DE CSS ESTILO DARK PREMIUM ---
+# ---------------- TEMA BRANCO (XBOX STYLE) ----------------
 st.markdown("""
-    <style>
-    /* Fundo geral da aplicação */
-    .stApp {
-        background-color: #0d1117;
-    }
+<style>
+/* Fundo geral */
+.stApp {
+    background-color: #FFFFFF;
+    color: #000000;
+}
 
-    /* Estilização dos Containers (Cards) */
-    div[data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: #161b22 !important;
-        border: 1px solid #30363d !important;
-        border-radius: 12px !important;
-        padding: 25px !important;
-        margin-bottom: 15px !important;
-    }
+/* Textos */
+h1, h2, h3, h4, h5, h6, p, span, label, div {
+    color: #000000;
+}
 
-    /* Títulos e textos em tons de cinza claro/branco */
-    h1, h2, h3, h4, p, span, label {
-        color: #c9d1d9 !important;
-    }
+/* Containers */
+[data-testid="stContainer"] {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 10px;
+}
 
-    /* Customização das Métricas (KPIs) individuais */
-    [data-testid="stMetric"] {
-        background-color: #0d1117 !important;
-        border: 1px solid #30363d !important;
-        padding: 15px !important;
-        border-radius: 10px !important;
-    }
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #FFFFFF;
+}
 
-    /* Cor dos números das métricas (Azul suave) */
-    [data-testid="stMetricValue"] {
-        color: #58a6ff !important;
-    }
+/* Botões */
+button {
+    background-color: #107C10;
+    color: white;
+    border-radius: 8px;
+}
 
-    /* Ajuste na barra lateral (Sidebar) */
-    [data-testid="stSidebar"] {
-        background-color: #0d1117;
-        border-right: 1px solid #30363d;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+/* File uploader */
+[data-testid="stFileUploader"] {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 10px;
+    padding: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
 
+# ---------------- HEADER ----------------
 st.title("EA Makers")
-st.subheader("Bem-vindo ao dashboard que transforma dados em resultados.")
+st.subheader("Bem-vindo ao dashboard que transforma dados em resultados que redefinem a sua empresa.")
 
-# Usando o sidebar para o upload como na imagem de referência
-with st.sidebar:
-    st.header("Configurações")
-    uploaded_file = st.file_uploader("Escolha seu arquivo", type=["csv", "xlsx"])
+# ---------------- UPLOAD ----------------
+uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
+
+    # Ler arquivo
     df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
-    colunas_obrigatorias = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
-    
+
+    # Colunas obrigatórias
+    colunas_obrigatorias = [
+        'ano',
+        'Valor total do projeto',
+        'Investimento (R$)',
+        'Lucro',
+        'Salário médio',
+        'Horas economizadas',
+        'total de funcionarios'
+    ]
+
     if all(col in df.columns for col in colunas_obrigatorias):
-        # --- CÁLCULOS ---
+
+        # ---------------- CÁLCULOS ----------------
         df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
         df['Payback'] = df['Investimento (R$)'] / df['Lucro']
         df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
-        df['ano_str'] = df['ano'].astype(int).astype(str) # Para o eixo X do gráfico
 
-        # --- SEÇÃO DE DADOS ---
-        with st.container(border=True):
-            st.write("### 📂 Repositório de Dados")
-            st.dataframe(df, use_container_width=True)
+        st.write("### Tabela de Dados Calculada")
+        st.dataframe(df, use_container_width=True)
 
-        # --- SEÇÃO DE KPIS (POR ANO) ---
+        # ---------------- KPIs POR ANO ----------------
         st.write("### 📊 Performance por Ano")
-        cols = st.columns(3)
-        
-        for i, ano in enumerate([2023, 2024, 2025]):
+
+        col1, col2, col3 = st.columns(3)
+        mapa = {2023: col1, 2024: col2, 2025: col3}
+
+        for ano in [2023, 2024, 2025]:
             dados_ano = df[df['ano'] == ano]
+
             if not dados_ano.empty:
                 r = dados_ano.iloc[0]
-                with cols[i]:
+
+                with mapa[ano]:
                     with st.container(border=True):
                         st.markdown(f"#### Ano {ano}")
                         st.metric("ROI", f"{r['ROI']:.1f}%")
                         st.metric("Payback", f"{r['Payback']:.2f} anos")
                         st.metric("Savings", f"R$ {r['Savings']:,.2f}")
-                        
+
                         if r['ROI'] > 50:
-                            st.success("✅ Projeto Viável")
+                            st.success("✅ Projeto Viável (ROI > 50%)")
                         else:
-                            st.error("⚠️ Inviável")
+                            st.error("⚠️ Projeto Inviável (ROI < 50%)")
+            else:
+                mapa[ano].warning(f"Dados de {ano} não encontrados.")
 
-        # --- SEÇÃO DE GRÁFICOS (LADO A LADO) ---
-        col_graf1, col_graf2 = st.columns(2)
+        # ---------------- GRÁFICO ROI ----------------
+        st.write("### 📈 Gráfico de ROI")
 
-        with col_graf1:
-            with st.container(border=True):
-                st.write("### 📈 Tendência de ROI")
-                st.line_chart(data=df, x="ano_str", y="ROI", color="#58a6ff")
+        df['ano'] = df['ano'].astype(int).astype(str)
 
-        with col_graf2:
-            with st.container(border=True):
-                st.write("### 📊 Investimento vs Lucro")
-                fig = go.Figure()
-                fig.add_trace(go.Bar(x=df['ano_str'], y=df['Investimento (R$)'], name='Investimento', marker_color='#f85149'))
-                fig.add_trace(go.Bar(x=df['ano_str'], y=df['Lucro'], name='Lucro', marker_color='#3fb950'))
-                
-                fig.update_layout(
-                    barmode='group',
-                    paper_bgcolor='rgba(0,0,0,0)',
-                    plot_bgcolor='rgba(0,0,0,0)',
-                    template="plotly_dark",
-                    margin=dict(l=10, r=10, t=10, b=10),
-                    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-                )
-                st.plotly_chart(fig, use_container_width=True)
-                
+        st.line_chart(
+            data=df,
+            x="ano",
+            y="ROI",
+            use_container_width=True
+        )
+
+        # ---------------- GRÁFICO INVESTIMENTO X LUCRO ----------------
+        st.write("### 📊 Comparativo: Investimento vs Lucro")
+
+        fig = go.Figure()
+
+        fig.add_trace(go.Bar(
+            x=df['ano'],
+            y=df['Investimento (R$)'],
+            name='Investimento',
+            marker_color='#E53935'
+        ))
+
+        fig.add_trace(go.Bar(
+            x=df['ano'],
+            y=df['Lucro'],
+            name='Lucro',
+            marker_color='#2E7D32'
+        ))
+
+        fig.update_layout(
+            barmode='group',
+            xaxis_title="Ano de Operação",
+            yaxis_title="Valor (R$)",
+            paper_bgcolor='white',
+            plot_bgcolor='white',
+            font=dict(color='black'),
+            legend_title="Indicadores",
+            template="plotly_white",
+            margin=dict(l=20, r=20, t=20, b=20)
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
     else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
+
 else:
-    st.info("Aguardando upload no menu lateral.")
+    st.info("Aguardando upload do arquivo para processar os dados.")
