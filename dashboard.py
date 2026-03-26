@@ -20,7 +20,7 @@ local_css("Stylepy.css")
 with st.sidebar:
     # Tenta carregar a logo, se não existir, usa apenas o texto
     try:
-        st.image("yp.jpg", use_container_width=True=True)
+        st.image("yp.jpg", use_container_width=True)
     except:
         st.title("EA MAKERS")
     
