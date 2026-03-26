@@ -17,7 +17,7 @@ local_css("Stylepy.css")
 st.title("EA Makers - Dashboard")
 st.subheader("Bem-vindo ao dashboard que transforma seus dados em insights que redefinem sua empresa.")
 
-with st.sidebar:
+with st.sidebar.container(border=True):
     st.image("yp.jpg")
     st.title("Menu - Dashboard")
     uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
