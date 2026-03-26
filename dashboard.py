@@ -77,7 +77,6 @@ if uploaded_file is not None:
         # Criando o gráfico com Plotly
         fig = go.Figure()
 
-        # Barra de Investimento
         fig.add_trace(go.Bar(
          x=df['ano'],
          y=df['Investimento (R$)'],
@@ -93,8 +92,7 @@ if uploaded_file is not None:
          marker_color='#2E7D32' # Verde para entrada/retorno
          ))
 
-         # Ajustando o layout para barras duplas (lado a lado)
-         fig.update_layout(
+        fig.update_layout(
           barmode='group', 
           xaxis_title="Ano de Operação",
           yaxis_title="Valor (R$)",
