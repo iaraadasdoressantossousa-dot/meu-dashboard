@@ -38,7 +38,8 @@ if uploaded_file is not None:
         st.write("### Tabela de Dados do usuário")
         st.dataframe(df)
         # --- MÉTRICAS POR ANO ---
-        st.write("### 📊 Performance por Ano")
+        with st.container(border=True):
+            st.write("### 📊 Performance por Ano")
         
         col23, col24, col25 = st.columns(3)
         mapa_colunas = {2023: col23, 2024: col24, 2025: col25}
