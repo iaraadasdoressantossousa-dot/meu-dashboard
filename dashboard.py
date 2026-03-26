@@ -114,7 +114,7 @@ if uploaded_file is not None:
 
           st.plotly_chart(fig, use_container_width=True)
 
-   else:
+    else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
 
 else:
