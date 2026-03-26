@@ -25,7 +25,7 @@ with st.sidebar:
         st.title("EA MAKERS")
     
     st.markdown("### Navegação")
-    pagina = st.radio("Ir para:", ["📊 Dashboard", "📅 Tabela de Dados"])
+    pagina = st.radio("Ir para:", ["📊 Dashboard", "📅 Visualizar dados"])
     
     st.divider()
     st.markdown("### Dados")
@@ -99,8 +99,8 @@ if uploaded_file is not None:
                     st.plotly_chart(fig, use_container_width=True)
 
         # --- PÁGINA: TABELA DE DADOS ---
-        elif pagina == "📅 Tabela de Dados":
-            st.title("Base de Dados Completa")
+        elif pagina == "📅 Visualizar dados":
+            st.title("Base de Dados do usuário")
             with st.container(border=True):
                 st.dataframe(df_filtrado, use_container_width=True, height=400)
                 
@@ -109,13 +109,13 @@ if uploaded_file is not None:
                 
                 with btn_csv:
                     csv = df_filtrado.to_csv(index=False).encode('utf-8')
-                    st.download_button("📥 Baixar CSV", data=csv, file_name="ea_makers_dados.csv", mime="text/csv", use_container_width=True)
+                    st.download_button("Baixar CSV", data=csv, file_name="ea_makers_dados.csv", mime="text/csv", use_container_width=True)
                 
                 with btn_xlsx:
                     buffer = io.BytesIO()
                     with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
                         df_filtrado.to_excel(writer, index=False)
-                    st.download_button("📥 Baixar Excel (XLSX)", data=buffer.getvalue(), file_name="ea_makers_dados.xlsx", mime="application/vnd.ms-excel", use_container_width=True)
+                    st.download_button("Baixar Excel (XLSX)", data=buffer.getvalue(), file_name="ea_makers_dados.xlsx", mime="application/vnd.ms-excel", use_container_width=True)
 
     else:
         st.error(f"Erro: O ficheiro deve conter as colunas: {', '.join(colunas_req)}")
