@@ -25,7 +25,7 @@ with st.sidebar:
         st.title("EA MAKERS")
     
     st.markdown("### Navegação")
-    pagina = st.radio('', ["📊 Dashboard", "📅 Visualizar base de dados"])
+    pagina = st.radio('', ["Dashboard", "Visualizar base de dados"])
     
     st.divider()
     st.markdown("### Dados")
@@ -57,7 +57,7 @@ if uploaded_file is not None:
         df_filtrado = df[df['ano'].isin(anos_selecionados)]
 
         # --- PÁGINA: DASHBOARD ---
-        if pagina == "📊 Dashboard":
+        if pagina == "Dashboard":
           with st.container(border=True):
             st.markdown("<h1 style='text-align: center;'>Dashboard</h1>", unsafe_allow_html=True)
             
@@ -100,7 +100,7 @@ if uploaded_file is not None:
                     st.plotly_chart(fig, use_container_width=True)
 
         # --- PÁGINA: TABELA DE DADOS ---
-        elif pagina == "📅 Visualizar base de dados":
+        elif pagina == "Visualizar base de dados":
             st.title("Base de Dados do usuário")
             with st.container(border=True):
                 st.dataframe(df_filtrado, use_container_width=True, height=400)
