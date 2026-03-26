@@ -129,7 +129,7 @@ if uploaded_file is not None:
                     total_investimento = df_filtrado['Investimento (R$)'].sum()
                     total_lucro = df_filtrado['Lucro'].sum()
                     fig_pie = go.Figure(data=[go.Pie(labels=['investimento','Lucro'],values=[total_investimento, total_lucro], hole=.4, marker_colors =['#d3d3d3', '#a9871f'], textoinfo='percent+label',pull=[0, 0.1])])
-                    fig_pie.update_layout(height=350, margin=dict(l=20, r=20, t=30, b=20), legend=dict(orientation='h', yanchor='bottom', y=-0.1, xanchor='center', x=0,5), showlegend=True)
+                    fig_pie.update_layout(height=350, margin=dict(l=20, r=20, t=30, b=20), legend=dict(orientation='h', yanchor='bottom', y=-0.1, xanchor='center', x=0.5), showlegend=True)
                     st.plotly_chart(fig_pie, use_container_width=True)
 
         
