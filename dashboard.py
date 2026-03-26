@@ -25,7 +25,7 @@ with st.sidebar:
         st.title("EA MAKERS")
     
     st.markdown("### Navegação")
-    pagina = st.radio("Ir para:", ["📊 Dashboard", "📅 Visualizar dados"])
+    pagina = st.radio("Ir para:", ["📊 Dashboard", "📅 Visualizar base de dados"])
     
     st.divider()
     st.markdown("### Dados")
@@ -52,13 +52,13 @@ if uploaded_file is not None:
         with st.sidebar:
             st.divider()
             anos_disponiveis = sorted(df['ano'].unique())
-            anos_selecionados = st.multiselect("Filtrar Anos na Tela", options=anos_disponiveis, default=anos_disponiveis)
+            anos_selecionados = st.multiselect("Filtrar Anos", options=anos_disponiveis, default=anos_disponiveis)
         
         df_filtrado = df[df['ano'].isin(anos_selecionados)]
 
         # --- PÁGINA: DASHBOARD ---
         if pagina == "📊 Dashboard":
-            st.markdown("<h1 style='text-align: center;'>EA Makers - Dashboard de Performance</h1>", unsafe_allow_html=True)
+            st.markdown("<h1 style='text-align: center;'>EA Makers - Dashboard</h1>", unsafe_allow_html=True)
             
             # Métricas por Ano em Colunas Dinâmicas
             if anos_selecionados:
@@ -99,7 +99,7 @@ if uploaded_file is not None:
                     st.plotly_chart(fig, use_container_width=True)
 
         # --- PÁGINA: TABELA DE DADOS ---
-        elif pagina == "📅 Visualizar dados":
+        elif pagina == "📅 Visualizar base de dados":
             st.title("Base de Dados do usuário")
             with st.container(border=True):
                 st.dataframe(df_filtrado, use_container_width=True, height=400)
