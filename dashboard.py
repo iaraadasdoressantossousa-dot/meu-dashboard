@@ -81,7 +81,7 @@ if uploaded_file is not None:
                                     st.error("☒ Inviável")
             
             st.divider()
-
+            st.markdown("<h1 style='text-align: center;'>Gráficos</h1>", unsafe_allow_html=True)
             # Gráficos Lado a Lado
             col_g1, col_g2 = st.columns(2)
 
