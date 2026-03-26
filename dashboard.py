@@ -1,199 +1,114 @@
-import streamlit as st
+pegue esse meu código aqui e faça essa transformação:                                                                                 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
+# 1. Configuração da página
+st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
-# ---------------- CONFIG ----------------
-st.set_page_config(page_title="EA Makers", layout="wide")
+def local_css(file_name):
+    try:
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    except FileNotFoundError:
+        pass 
 
-# ---------------- CSS MODERNO ----------------
-st.markdown("""
-<style>
+local_css("Stylepy.css")
 
-/* Fundo geral */
-.stApp {
-    background-color: #F5F6FA;
-}
+st.title("EA Makers")
+st.subheader("Bem-vindo ao dashboard que transforma dados em resultados que redefinem a sua empresa.")
 
-/* Títulos */
-h1 {
-    color: #111;
-    font-size: 42px;
-    font-weight: 700;
-}
-
-h2, h3 {
-    color: #222;
-}
-
-/* Subtexto */
-p {
-    color: #555;
-}
-
-/* Cards modernos */
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 18px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    margin-bottom: 15px;
-}
-
-/* KPI */
-.kpi {
-    font-size: 28px;
-    font-weight: bold;
-    color: #111;
-}
-
-.kpi-label {
-    font-size: 14px;
-    color: #777;
-}
-
-/* Upload box */
-[data-testid="stFileUploader"] {
-    background-color: white;
-    border-radius: 12px;
-    border: 1px solid #E0E0E0;
-    padding: 10px;
-}
-
-/* Botão */
-button {
-    background-color: #111;
-    color: white;
-    border-radius: 10px;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background-color: #FFFFFF;
-}
-
-</style>
-""", unsafe_allow_html=True)
-
-# ---------------- HEADER ----------------
-st.title("EA Makers Dashboard")
-st.write("Analytics moderno para tomada de decisão")
-
-# ---------------- UPLOAD ----------------
-uploaded_file = st.file_uploader("📂 Envie seu arquivo", type=["csv", "xlsx"])
+uploaded_file = st.file_uploader("Escolha seu arquivo Excel ou CSV", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
+    # Ler o arquivo
+    df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
 
-    df = pd.read_csv(uploaded_file) if uploaded_file.name.endswith('.csv') else pd.read_excel(uploaded_file)
+    # Verificação de colunas
+    colunas_obrigatorias = ['ano', 'Valor total do projeto', 'Investimento (R$)', 'Lucro', 'Salário médio', 'Horas economizadas', 'total de funcionarios']
+    
+    if all(col in df.columns for col in colunas_obrigatorias):
+        # --- CÁLCULOS GERAIS ---
+        df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
+        df['Payback'] = df['Investimento (R$)'] / df['Lucro']
+        df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
+        
+        st.write("### Tabela de Dados Calculada")
+        st.dataframe(df)
 
-    colunas = [
-        'ano',
-        'Valor total do projeto',
-        'Investimento (R$)',
-        'Lucro',
-        'Salário médio',
-        'Horas economizadas',
-        'total de funcionarios'
-    ]
+        # --- EXIBIÇÃO POR ANO ---
+        st.write("### 📊 Performance por Ano")
+        
+        col23, col24, col25 = st.columns(3)
+        mapa_colunas = {2023: col23, 2024: col24, 2025: col25}
 
-    if all(col in df.columns for col in colunas):
+        for ano in [2023, 2024, 2025]:
+            dados_ano = df[df['ano'] == ano]
+            
+            if not dados_ano.empty:
+                r = dados_ano.iloc[0]
+                with mapa_colunas[ano]:
+                  with st.container(border=True):
+                    st.markdown(f"#### Ano {ano}")
+                    st.metric("ROI", f"{r['ROI']:.1f}%")
+                    st.metric("Payback", f"{r['Payback']:.2f} anos")
+                    st.metric("Savings", f"R$ {r['Savings']:,.2f}")
+                    
+                    if r['ROI'] > 50:
+                        st.success("✅ Projeto Viável ( ROI > 50% )")
+                    else:
+                        st.error("⚠️ Inviável ( ROI < 50% )")
+            else:
+                mapa_colunas[ano].warning(f"Dados de {ano} não encontrados.")
 
-        # -------- CÁLCULOS --------
-        df['ROI'] = (df['Valor total do projeto'] - df['Investimento (R$)']) / df['Investimento (R$)'] * 100
-        df['Payback'] = df['Investimento (R$)'] / df['Lucro']
-        df['Savings'] = (df['Salário médio'] / 160) * (df['Horas economizadas'] * df['total de funcionarios'])
+        # --- GRÁFICO (Agora dentro do IF de colunas) ---
+        st.write("### 📈 Gráfico de ROI ")
+        df['ano'] = df['ano'].astype(int).astype(str)
+        st.line_chart(
+        data=df, 
+        x="ano", 
+        y="ROI", 
+        x_label="Ano de Operação", 
+        y_label="Retorno sobre Investimento (%)", 
+        color="#2E7D32", 
+        use_container_width=True
+        )
+        st.write("### 📊 Comparativo: Investimento vs Lucro")
 
-        # -------- KPIs --------
-        st.subheader("📊 Visão Geral")
+        # Criando o gráfico com Plotly
+        fig = go.Figure()
 
-        col1, col2, col3 = st.columns(3)
+        # Barra de Investimento
+        fig.add_trace(go.Bar(
+          x=df['ano'],
+          y=df['Investimento (R$)'],
+          name='Investimento',
+          marker_color='#E53935' # Vermelho para saída/custo
+        ))
 
-        with col1:
-            st.markdown(f"""
-            <div class="card">
-                <div class="kpi">{df['ROI'].mean():.1f}%</div>
-                <div class="kpi-label">ROI Médio</div>
-            </div>
-            """, unsafe_allow_html=True)
+        # Barra de Lucro
+        fig.add_trace(go.Bar(
+         x=df['ano'],
+         y=df['Lucro'],
+         name='Lucro',
+         marker_color='#2E7D32' # Verde para entrada/retorno
+        ))
 
-        with col2:
-            st.markdown(f"""
-            <div class="card">
-                <div class="kpi">{df['Payback'].mean():.2f}</div>
-                <div class="kpi-label">Payback Médio</div>
-            </div>
-            """, unsafe_allow_html=True)
+        # Ajustando o layout para barras duplas (lado a lado)
+        fig.update_layout(
+          barmode='group', 
+          xaxis_title="Ano de Operação",
+          yaxis_title="Valor (R$)",
+          paper_bgcolor='rgba(46, 125, 50, 0.05)', # Cor de fundo externa (verde bem clarinho)
+          plot_bgcolor='rgba(0,0,0,0)',
+          legend_title="Indicadores",
+          template="plotly_white",
+          margin=dict(l=20, r=20, t=20, b=20)
+        )
 
-        with col3:
-            st.markdown(f"""
-            <div class="card">
-                <div class="kpi">R$ {df['Savings'].sum():,.0f}</div>
-                <div class="kpi-label">Savings Total</div>
-            </div>
-            """, unsafe_allow_html=True)
-
-        # -------- GRÁFICOS --------
-        st.subheader("📈 Análise")
-
-        col4, col5 = st.columns(2)
-
-        # ROI linha
-        with col4:
-            fig = go.Figure()
-            fig.add_trace(go.Scatter(
-                x=df['ano'],
-                y=df['ROI'],
-                mode='lines+markers'
-            ))
-
-            fig.update_layout(
-                title="ROI ao longo dos anos",
-                paper_bgcolor='white',
-                plot_bgcolor='white',
-                font=dict(color='black'),
-                margin=dict(l=10, r=10, t=40, b=10)
-            )
-
-            st.markdown('<div class="card">', unsafe_allow_html=True)
-            st.plotly_chart(fig, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        # Investimento vs Lucro
-        with col5:
-            fig2 = go.Figure()
-
-            fig2.add_trace(go.Bar(
-                x=df['ano'],
-                y=df['Investimento (R$)'],
-                name='Investimento'
-            ))
-
-            fig2.add_trace(go.Bar(
-                x=df['ano'],
-                y=df['Lucro'],
-                name='Lucro'
-            ))
-
-            fig2.update_layout(
-                barmode='group',
-                title="Investimento vs Lucro",
-                paper_bgcolor='white',
-                plot_bgcolor='white',
-                font=dict(color='black')
-            )
-
-            st.markdown('<div class="card">', unsafe_allow_html=True)
-            st.plotly_chart(fig2, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        # -------- TABELA --------
-        st.subheader("📋 Dados")
-
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.dataframe(df, use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    else:
-        st.error("Arquivo com colunas incorretas")
+        # Exibindo no Streamlit
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        # Este else avisa se as colunas obrigatórias não foram encontradas
+        st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
 
 else:
-    st.info("Envie um arquivo para começar")
+    st.info("Aguardando upload do arquivo para processar os 3 anos.")
