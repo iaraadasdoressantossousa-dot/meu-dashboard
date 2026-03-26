@@ -21,9 +21,6 @@ with st.sidebar:
     st.image("yp.jpg")
     st.title("Menu de Navegação")
     uploaded_file = st.file_uploader("Upload de Dados", type=["csv", "xlsx"])
-    
-    st.markdown("---")
-    st.info("Configurações do Dashboard")
 
 if uploaded_file is not None:
     # Ler o arquivo
