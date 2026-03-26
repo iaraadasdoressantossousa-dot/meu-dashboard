@@ -71,7 +71,7 @@ if uploaded_file is not None:
                             r = dados_ano.iloc[0]
                             with st.container(border=True): # Borda Dourada aplicada via CSS
                                 st.metric("ROI", f"{r['ROI']:.1f}%")
-                                st.metric("Payback", f"{r['Payback']:.2f}a")
+                                st.metric("Payback", f"{r['Payback']:.2f} anos")
                                 st.metric("Savings", f"R${r['Savings']:,.0f}")
                                 
                                 if r['ROI'] > 50:
