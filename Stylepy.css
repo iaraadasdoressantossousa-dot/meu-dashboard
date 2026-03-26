@@ -1,8 +1,35 @@
-/* Mudar a cor do título principal */
+/* 1. Diminuir o título principal e subheader */
 h1 {
-    color: #2c3e50 !important;
-    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem !important;
+    margin-bottom: 0px !important;
 }
+
+h3 {
+    font-size: 1.2rem !important;
+    margin-top: 0px !important;
+}
+
+/* 2. Diminuir as métricas (ROI, Payback, Savings) */
+/* O rótulo (Label) */
+[data-testid="stMetricLabel"] {
+    font-size: 0.8rem !important;
+}
+
+/* O valor numérico */
+[data-testid="stMetricValue"] {
+    font-size: 1.5rem !important;
+}
+
+/* 3. Diminuir os textos dentro dos containers/cards */
+.stMarkdown p {
+    font-size: 0.9rem !important;
+    line-height: 1.2 !important;
+}
+
+/* 4. Ajustar os títulos das colunas (Ano 2023, etc) */
+h4 {
+    font-size: 1rem !important;
+    text-align: center;
 
 /* Deixar os botões com o dourado da EA Makers */
 .stButton>button {
