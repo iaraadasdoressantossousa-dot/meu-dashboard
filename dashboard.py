@@ -106,13 +106,13 @@ if uploaded_file is not None:
 
           # --- GRÁFICO 2: Investimento vs Lucro ---
           with col2.container(border=True):
-            st.markdown("#### 📊 Investimento vs Lucro")
+           st.markdown("#### 📊 Investimento vs Lucro")
 
             fig.update_layout(
             height=400  # 👈 mesma altura aqui
             )
 
-          st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, use_container_width=True)
 
     else:
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
