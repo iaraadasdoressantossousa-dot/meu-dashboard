@@ -94,7 +94,7 @@ if uploaded_file is not None:
                 with st.container(border=True):
                     st.markdown("#### 📊 Investimento vs Lucro")
                     fig_area = go.Figure()
-                    fig.add_trace(go.Scatter(
+                    fig_area.add_trace(go.Scatter(
                      x=df_filtrado['ano'], 
                      y=df_filtrado['Investimento (R$)'],
                      fill='tozeroy',
@@ -105,7 +105,7 @@ if uploaded_file is not None:
                     ))
 
                     # Área de Lucro
-                    fig.add_trace(go.Scatter(
+                    fig_area.add_trace(go.Scatter(
                      x=df_filtrado['ano'], 
                      y = df_filtrado['Lucro'],
                      fill='tozeroy',
@@ -115,7 +115,7 @@ if uploaded_file is not None:
                      fillcolor='rgba(169, 135, 31, 0.5)' # Dourado EA Makers transparente
                     ))
 
-                    fig.update_layout(
+                    fig_area.update_layout(
                      height=300,
                      margin=dict(l=0, r=0, t=10, b=0),
                      hovermode="x unified",
