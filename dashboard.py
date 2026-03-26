@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-
+import plotly.graph_objects as go
 # 1. Configuração da página
 st.set_page_config(page_title="EA Makers - Analytics", layout="wide")
 
@@ -70,6 +70,39 @@ if uploaded_file is not None:
         color="#2E7D32", 
         use_container_width=True
         )
+        st.write("### 📊 Comparativo: Investimento vs Lucro")
+
+        # Criando o gráfico com Plotly
+        fig = go.Figure()
+
+        # Barra de Investimento
+        fig.add_trace(go.Bar(
+          x=df['ano'],
+          y=df['Investimento (R$)'],
+          name='Investimento',
+          marker_color='#E53935' # Vermelho para saída/custo
+        ))
+
+        # Barra de Lucro
+        fig.add_trace(go.Bar(
+         x=df['ano'],
+         y=df['Lucro'],
+         name='Lucro',
+         marker_color='#2E7D32' # Verde para entrada/retorno
+        ))
+
+        # Ajustando o layout para barras duplas (lado a lado)
+        fig.update_layout(
+          barmode='group', 
+          xaxis_title="Ano de Operação",
+          yaxis_title="Valor (R$)",
+          legend_title="Indicadores",
+          template="plotly_white",
+          margin=dict(l=20, r=20, t=20, b=20)
+        )
+
+        # Exibindo no Streamlit
+        st.plotly_chart(fig, use_container_width=True)
     else:
         # Este else avisa se as colunas obrigatórias não foram encontradas
         st.error(f"O arquivo precisa conter: {', '.join(colunas_obrigatorias)}")
